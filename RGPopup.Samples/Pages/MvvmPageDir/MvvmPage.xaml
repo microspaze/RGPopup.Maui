@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+                 xmlns:pages1="clr-namespace:RGPopup.Samples.Pages;assembly=RGPopup.Samples"
+                 x:Class="RGPopup.Samples.Pages.MvvmPage"
+                 x:DataType="pages1:MvvmPageViewModel"
+                 CloseWhenBackgroundIsClicked="False"
+                 BackgroundClickedCommand="{Binding BackgroundClickedCommand}"
+                 BackgroundClickedCommandParameter="{x:Reference ClickOnBackgroundLabel}">
+    <pages:PopupPage.Content>
+        <ContentView>
+            <Frame HasShadow="False" CornerRadius="6"
+                   HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Aqua">
+                <StackLayout>
+                    <Label x:Name="ClickOnBackgroundLabel"
+                           Text="Click on background"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"/>
+                    <Button TextColor="Black" BackgroundColor="White" Text="Close" Clicked="OnClose"></Button>
+                </StackLayout>
+            </Frame>
+        </ContentView>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

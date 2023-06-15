@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RGPopup.Samples.MainPage"
+             Title="Popup Demo"
+             BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#7dbbe6" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView VerticalOptions="Fill">
+        <StackLayout Spacing="20" Margin="10, 15">
+            <Button Text="Open Popup" Clicked="OnOpenPopup" />
+            <Button Text="Open User Animation Popup" Clicked="OnUserAnimationPupup" />
+            <Button Text="Open System Offset Page" Clicked="OnOpenSystemOffsetPage" />
+            <Button Text="ListView Page" Clicked="OnOpenListViewPage" />
+            <Button Text="Open User Animation Popup using Resources"
+                    Clicked="OnOpenUserAnimationFromResource" />
+            <Button Text="Open User Animation Popup using Style"
+                    Clicked="OnOpenUserAnimationFromStyle" />
+            <Button Text="Open Settings" Clicked="OnOpenSettingsPage" />
+            <Button Text="Open MvvmPage" Clicked="OnOpenMvvmPage" />
+            <Button Text="Open TestCurrentViewController" Clicked="OnTestCurrentViewController"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

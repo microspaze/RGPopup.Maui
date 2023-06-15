@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+              xmlns:animation="clr-namespace:RGPopup.Maui.Animations;assembly=RGPopup.Maui"
+              x:Class="RGPopup.Samples.Pages.LoginSuccessPopupPage"
+              x:Name="ThisPage"
+              BackgroundColor="Transparent"
+              BackgroundInputTransparent="True"
+              HasSystemPadding="False"
+              CloseWhenBackgroundIsClicked="False">
+    <rg:PopupPage.Animation>
+      <animation:MoveAnimation
+        PositionIn="Top"
+        PositionOut="Top"/>
+    </rg:PopupPage.Animation>
+    <ContentView>
+        <StackLayout
+            VerticalOptions="Start"
+            BackgroundColor="#43A047">
+            <BoxView
+                HeightRequest="{Binding Source={x:Reference ThisPage}, Path=SystemPadding.Top}"/>
+            <Label
+                Margin="10, 0, 0, 5"
+                TextColor="White"
+                VerticalOptions="EndAndExpand"
+                Text="Login is success"/>
+        </StackLayout>
+    </ContentView>
+</rg:PopupPage>

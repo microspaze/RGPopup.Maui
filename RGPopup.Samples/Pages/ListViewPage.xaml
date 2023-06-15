@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage
+    x:Class="RGPopup.Samples.Pages.ListViewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui">
+    <ContentView>
+        <StackLayout
+            Padding="20,20,20,20"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <StackLayout BackgroundColor="White" HeightRequest="300">
+                <ListView x:Name="listView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding .}" TextColor="Black" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Button
+                Clicked="OnClose"
+                Text="Close"
+                TextColor="#A9D1DE" />
+        </StackLayout>
+    </ContentView>
+</rg:PopupPage>
