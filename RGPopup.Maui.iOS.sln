@@ -9,30 +9,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGPopup.Samples", "RGPopup.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|Device = Debug|Device
 		Debug|Simulator = Debug|Simulator
-		Release|Any CPU = Release|Any CPU
+		Release|Device = Release|Device
+		Release|Simulator = Release|Simulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Device.ActiveCfg = Debug|Device
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Device.Build.0 = Debug|Device
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Simulator.ActiveCfg = Debug|Simulator
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Simulator.Build.0 = Debug|Simulator
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Any CPU.Build.0 = Release|Any CPU
-		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Device.ActiveCfg = Release|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Device.Build.0 = Release|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.ActiveCfg = Release|Simulator
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.Build.0 = Release|Simulator
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.ActiveCfg = Debug|Device
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.Build.0 = Debug|Device
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.ActiveCfg = Debug|Simulator
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.Build.0 = Debug|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.ActiveCfg = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Build.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Deploy.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.ActiveCfg = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.Build.0 = Release|Simulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

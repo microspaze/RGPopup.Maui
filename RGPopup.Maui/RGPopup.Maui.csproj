@@ -17,7 +17,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Nullable>enable</Nullable>
 		<Configurations>Debug;Release</Configurations>
-		<Platforms>AnyCPU;Device;Simulator</Platforms>
+		<Platforms>Device;Simulator</Platforms>
 	</PropertyGroup>
 
 </Project>
