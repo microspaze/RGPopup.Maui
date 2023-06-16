@@ -12,27 +12,6 @@ namespace RGPopup.Maui.IOS.Extensions
     {
         private static bool IsiOS13OrNewer => UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
 
-        public static IVisualElementRenderer GetOrCreateRenderer(this VisualElement bindable)
-        {
-            var renderer = XFPlatform.GetRenderer(bindable);
-            if (renderer == null)
-            {
-                if (bindable.Handler != null)
-                {
-                    bindable.Handler.DisconnectHandler();
-                }
-                
-                renderer = XFPlatform.CreateRenderer(bindable);
-                XFPlatform.SetRenderer(bindable, renderer);
-            }
-            return renderer;
-        }
-
-        public static T GetOrCreateHandler<T>(this VisualElement bindable) where T : IViewHandler, new()
-        {
-            return (T)(bindable.Handler ??= new T());
-        }
-        
         public static void DisposeModelAndChildrenHandlers(this VisualElement? view)
         {
             var handler = view?.Handler;

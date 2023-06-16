@@ -11,25 +11,36 @@ using View = Android.Views.View;
 
 namespace RGPopup.Maui.Droid.Renderers
 {
-    public class PopupPageRenderer : Microsoft.Maui.Controls.Handlers.Compatibility.VisualElementRenderer<PopupPage>
+    public class PopupPageRenderer : ContentViewGroup
     {
+        private static FrameLayout? DecorView => Popup.DecorView;
+        private static Thickness _safePadding = new Thickness(50);
+        private static double _sizeRatio = 0D;
+        private static double _windowWidth = 0D;
+        private static double _windowHeight = 0D;
+        private static double _contentWidth = 0D;
+        private static double _contentHeight = 0D;
+        private static double _contentX = 0D;
+        private static double _contentY = 0D;
+        
         private readonly RgGestureDetectorListener _gestureDetectorListener;
         private readonly GestureDetector _gestureDetector;
         private DateTime _downTime;
         private Point _downPosition;
         private bool _disposed;
 
-        private PopupPage CurrentElement => Element;
-        private ContentView CurrentContent => (ContentView)CurrentElement.Content;
+        public PopupPage? CurrentElement { get; }
+        public Microsoft.Maui.Controls.View? PopupContent { get; }
 
         #region Main Methods
 
-        public PopupPageRenderer(Context context) : base(context)
+        public PopupPageRenderer(Context context, IContentView view) : base(context)
         {
+            CurrentElement = view as PopupPage;
+            PopupContent = ((ContentView?)CurrentElement?.Content)?.Content;
+            
             _gestureDetectorListener = new RgGestureDetectorListener();
-
             _gestureDetectorListener.Clicked += OnBackgroundClick;
-
             _gestureDetector = new GestureDetector(Context, _gestureDetectorListener);
         }
 
@@ -133,6 +144,20 @@ namespace RGPopup.Maui.Droid.Renderers
                 element.ForceLayout();
             }
             
+            if (CurrentElement != null && DecorView != null)
+            {
+                _sizeRatio = DecorView.Height / CurrentElement.Height;
+                _windowWidth = DecorView.Width;
+                _windowHeight = DecorView.Height;
+
+                var safePadding = CurrentElement.SafePadding;
+                var gestureInsets = RootWindowInsets.SystemGestureInsets;
+                _safePadding.Left = Math.Max(safePadding.Left * _sizeRatio, gestureInsets.Left);
+                _safePadding.Right = Math.Max(safePadding.Right * _sizeRatio, gestureInsets.Right);
+                _safePadding.Top = Math.Max(safePadding.Top * _sizeRatio, gestureInsets.Top);
+                _safePadding.Bottom = Math.Max(safePadding.Bottom * _sizeRatio, gestureInsets.Bottom);
+            }
+            
             base.OnLayout(changed, l, t, r, b);
         }
 
@@ -142,16 +167,15 @@ namespace RGPopup.Maui.Droid.Renderers
 
         protected override void OnAttachedToWindow()
         {
-            Context.HideKeyboard(((Activity?)Context)?.Window?.DecorView);
-            //CurrentElement.Content.
+            Context?.HideKeyboard(DecorView);
             base.OnAttachedToWindow();
         }
 
         protected override void OnDetachedFromWindow()
         {
-            Element.Dispatcher.StartTimer(TimeSpan.FromMilliseconds(0), () =>
+            CurrentElement?.Dispatcher.StartTimer(TimeSpan.FromMilliseconds(0), () =>
             {
-                Popup.Context.HideKeyboard(((Activity?)Popup.Context)?.Window?.DecorView);
+                Context?.HideKeyboard(DecorView);
                 return false;
             });
             base.OnDetachedFromWindow();
@@ -170,8 +194,10 @@ namespace RGPopup.Maui.Droid.Renderers
 
         #region Touch Methods
 
-        public override bool DispatchTouchEvent(MotionEvent e)
+        public override bool DispatchTouchEvent(MotionEvent? e)
         {
+            if (e == null){ return false; }
+            
             if (e.Action == MotionEventActions.Down)
             {
                 _downTime = DateTime.UtcNow;
@@ -210,36 +236,51 @@ namespace RGPopup.Maui.Droid.Renderers
             return flag;
         }
 
-        public override bool OnTouchEvent(MotionEvent e)
+        public override bool OnTouchEvent(MotionEvent? e)
         {
-            if (_disposed)
+            if (_disposed || e == null || CurrentElement == null || PopupContent == null)
                 return false;
 
             var baseValue = base.OnTouchEvent(e);
 
             _gestureDetector.OnTouchEvent(e);
 
-            if (CurrentElement != null && CurrentElement.BackgroundInputTransparent)
+            var hasCommand = CurrentElement.BackgroundClickedCommand != null;
+            if (hasCommand || CurrentElement.BackgroundInputTransparent || CurrentElement.CloseWhenBackgroundIsClicked)
             {
-                if ((ChildCount > 0 && !IsInRegion(e.RawX, e.RawY, CurrentContent.Content)) || ChildCount == 0)
+                _contentWidth = PopupContent.Width * _sizeRatio;
+                _contentHeight = PopupContent.Height * _sizeRatio;
+                _contentX = PopupContent.X * _sizeRatio;
+                _contentY = PopupContent.Y * _sizeRatio;
+
+                var isInRegion = IsInRegion(e.RawX, e.RawY);
+                var isInSafePadding = !isInRegion && IsInSafePadding(e.RawX, e.RawY);
+                if ((hasCommand && !isInSafePadding) || (ChildCount > 0 && !isInRegion && !isInSafePadding) || ChildCount == 0)
                 {
-                    CurrentElement.SendBackgroundClick();
-                    return false;
+                    CurrentElement?.SendBackgroundClick();
+                    //Prevent other view handle the click event.
+                    return true;
+                }
+                else if (isInSafePadding)
+                {
+                    //Prevent other view handle the click event.
+                    return true;
                 }
             }
 
             return baseValue;
         }
 
-        private void OnBackgroundClick(object sender, MotionEvent e)
+        private void OnBackgroundClick(object? sender, MotionEvent? e)
         {
-            if (ChildCount == 0)
+            if (ChildCount == 0 || e == null)
                 return;
 
             //var isInRegion = IsInRegion(e.RawX, e.RawY, GetChildAt(0)!);
-            var isInRegion = IsInRegion(e.RawX, e.RawY, CurrentContent.Content);
-            if (!isInRegion)
-                CurrentElement.SendBackgroundClick();
+            var isInRegion = IsInRegion(e.RawX, e.RawY);
+            var isInSafePadding = IsInSafePadding(e.RawX, e.RawY);
+            if (!isInRegion && !isInSafePadding)
+                CurrentElement?.SendBackgroundClick();
         }
 
         // Fix for "CloseWhenBackgroundIsClicked not works on Android with Xamarin.Forms 2.4.0.280" #173
@@ -254,12 +295,23 @@ namespace RGPopup.Maui.Droid.Renderers
                    mCoordBuffer[1] < y;                // top edge
         }
         
-        private static bool IsInRegion(float x, float y, VisualElement v)
+        private static bool IsInRegion(float x, float y)
         {
-            return v.X + v.Width > x &&    // right edge
-                   v.Y + v.Height > y &&   // bottom edge
-                   v.X < x &&              // left edge
-                   v.Y < y;                // top edge
+            var inViewRegion = 
+                 _contentX + _contentWidth > x &&    // right edge
+                 _contentY + _contentHeight > y &&   // bottom edge
+                 _contentX < x &&                    // left edge
+                 _contentY < y;                      // top edge
+            return inViewRegion;
+        }
+
+        private static bool IsInSafePadding(float x, float y)
+        {
+            var inSafePadding =  !(x > _safePadding.Left
+                                   && x < (_windowWidth - _safePadding.Right)
+                                   && y > _safePadding.Top
+                                   && y < (_windowHeight - _safePadding.Bottom));
+            return inSafePadding;
         }
 
         #endregion

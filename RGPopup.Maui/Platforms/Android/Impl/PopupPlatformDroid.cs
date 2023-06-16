@@ -1,5 +1,4 @@
 ﻿
-using System.Diagnostics.CodeAnalysis;
 using Android.App;
 using Android.OS;
 using Android.Provider;
@@ -10,16 +9,18 @@ using Microsoft.Maui.Platform;
 using RGPopup.Maui.Contracts;
 using RGPopup.Maui.Droid.Extensions;
 using RGPopup.Maui.Droid.Impl;
+using RGPopup.Maui.Droid.Renderers;
 using RGPopup.Maui.Exceptions;
+using RGPopup.Maui.Extensions;
 using RGPopup.Maui.Pages;
-
+using View = Android.Views.View;
 using XApplication = Microsoft.Maui.Controls.Application;
 
 namespace RGPopup.Maui.Droid.Impl
 {
     internal class PopupPlatformDroid : IPopupPlatform
     {
-        private static FrameLayout? DecoreView => (FrameLayout?)((Activity?)Popup.Context)?.Window?.DecorView;
+        private static FrameLayout? DecorView => Popup.DecorView;
         
         public event EventHandler OnInitialized
         {
@@ -33,67 +34,12 @@ namespace RGPopup.Maui.Droid.Impl
 
         public Task AddAsync(PopupPage page)
         {
-            var decoreView = DecoreView;
-
-            HandleAccessibilityWorkaround(page);
-
+            HandleAccessibilityWorkaround(page, ImportantForAccessibility.NoHideDescendants);
+            
             page.Parent = XApplication.Current?.MainPage;
-            var renderer = page.GetOrCreateRenderer();
-
-            decoreView?.AddView(renderer.View);
-            return PostAsync(renderer.View);
-
-            static void HandleAccessibilityWorkaround(PopupPage page)
-            {
-                if (page.AndroidTalkbackAccessibilityWorkaround)
-                {
-                    var mainPage = XApplication.Current?.MainPage;
-                    if (mainPage == null) return;
-                    var navCount = mainPage.Navigation.NavigationStack.Count;
-                    var modalCount = mainPage.Navigation.ModalStack.Count;
-                    var renderer = mainPage.GetOrCreateRenderer();
-                    if (renderer == null) return;
-                    
-                    renderer.View.ImportantForAccessibility = ImportantForAccessibility.NoHideDescendants;
-
-                    if (navCount > 0)
-                    {
-                        var navPage = mainPage.Navigation.NavigationStack[navCount - 1];
-                        if (navPage != null)
-                        {
-                            navPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.NoHideDescendants;
-                        }
-                    }
-                    if (modalCount > 0)
-                    {
-                        var modalPage = mainPage.Navigation.ModalStack[modalCount - 1];
-                        if (modalPage != null)
-                        {
-                            modalPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.NoHideDescendants;
-                        }
-                    }
-
-                    DisableFocusableInTouchMode(renderer.View.Parent);
-                }
-            }
-
-            static void DisableFocusableInTouchMode(IViewParent? parent)
-            {
-                var view = parent;
-                string className = $"{view?.GetType().Name}";
-
-                while (!className.Contains("PlatformRenderer") && view != null)
-                {
-                    view = view.Parent;
-                    className = $"{view?.GetType().Name}";
-                }
-
-                if (view is Android.Views.View androidView)
-                {
-                    androidView.Focusable = false;
-                    androidView.FocusableInTouchMode = false;
-                }
-            }
+            var pageHandler = page.GetOrCreateHandler<PopupPageHandlerDroid>();
+            DecorView?.AddView(pageHandler.PlatformView);
+            return PostAsync(pageHandler.PlatformView);
         }
 
         public Task RemoveAsync(PopupPage page)
@@ -101,60 +47,21 @@ namespace RGPopup.Maui.Droid.Impl
             if (page == null)
                 throw new RGPageInvalidException("Popup page is null");
 
-            var renderer = page.GetOrCreateRenderer();
-            if (renderer != null)
+            var pageHandler = page.GetHandler<PopupPageHandlerDroid>();
+            if (pageHandler != null)
             {
-                //HandleAccessibilityWorkaround(page);
+                HandleAccessibilityWorkaround(page, ImportantForAccessibility.Auto);
 
-                page.Parent = XApplication.Current?.MainPage;
-                var element = renderer.Element;
-
-                DecoreView?.RemoveView(renderer.View);
+                DecorView?.RemoveView(pageHandler.PlatformView);
+                page.Parent = null;
                 //If manual dispose the view's renderer, but the view is not disposed at the same time, it will crash when repush the view.
                 //renderer.Dispose();
-
-                if (element != null)
-                    element.Parent = null;
-                if (DecoreView != null)
-                    return PostAsync(DecoreView);
+                
+                if (DecorView != null)
+                    return PostAsync(DecorView);
             }
 
             return Task.FromResult(true);
-
-            static void HandleAccessibilityWorkaround(PopupPage page)
-            {
-                if (page.AndroidTalkbackAccessibilityWorkaround)
-                {
-                    var mainPage = XApplication.Current?.MainPage;
-                    if (mainPage == null) return;
-                    var navCount = mainPage.Navigation.NavigationStack.Count;
-                    var modalCount = mainPage.Navigation.ModalStack.Count;
-                    var mainPageRenderer = mainPage.GetOrCreateRenderer();
-
-                    // Workaround for https://github.com/rotorgames/Rg.Plugins.Popup/issues/721
-                    if (!(mainPage is MultiPage<Page>))
-                    {
-                        mainPageRenderer.View.ImportantForAccessibility = ImportantForAccessibility.Auto;
-                    }
-
-                    if (navCount > 0)
-                    {
-                        var navPage = mainPage.Navigation.NavigationStack[navCount - 1];
-                        if (navPage != null)
-                        {
-                            navPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.Auto;
-                        }
-                    }
-                    if (modalCount > 0)
-                    {
-                        var modalPage = mainPage.Navigation.ModalStack[modalCount - 1];
-                        if (modalPage != null)
-                        {
-                            modalPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.Auto;
-                        }
-                    }
-                }
-            }
         }
 
         #region System Animation
@@ -189,7 +96,7 @@ namespace RGPopup.Maui.Droid.Impl
 
         #region Helpers
 
-        private static Task PostAsync(Android.Views.View nativeView)
+        private static Task PostAsync(View? nativeView)
         {
             if (nativeView == null)
                 return Task.FromResult(true);
@@ -200,6 +107,65 @@ namespace RGPopup.Maui.Droid.Impl
 
             return tcs.Task;
         }
+
+        private static void HandleAccessibilityWorkaround(PopupPage page, ImportantForAccessibility accessibility)
+        {
+            if (page.AndroidTalkbackAccessibilityWorkaround)
+            {
+                var mainPage = XApplication.Current?.MainPage;
+                if (mainPage == null) return;
+
+                var pageHandler = page.GetHandler<PopupPageHandler>();
+                if (pageHandler != null)
+                {
+                    pageHandler.PlatformView.ImportantForAccessibility = accessibility;
+                }
+
+                var navCount = mainPage.Navigation.NavigationStack.Count;
+                if (navCount > 0)
+                {
+                    var navPage = mainPage.Navigation.NavigationStack[navCount - 1];
+                    if (navPage != null && navPage.Handler?.PlatformView is View navPageView)
+                    {
+                        navPageView.ImportantForAccessibility = accessibility;
+                    }
+                }
+
+                var modalCount = mainPage.Navigation.ModalStack.Count;
+                if (modalCount > 0)
+                {
+                    var modalPage = mainPage.Navigation.ModalStack[modalCount - 1];
+                    if (modalPage != null && modalPage.Handler?.PlatformView is View modelPageView)
+                    {
+                        modelPageView.ImportantForAccessibility = accessibility;
+                    }
+                }
+
+                if (accessibility == ImportantForAccessibility.NoHideDescendants)
+                {
+                    DisableFocusableInTouchMode(pageHandler?.PlatformView.Parent);
+                }
+            }
+        }
+
+        private static void DisableFocusableInTouchMode(IViewParent? parent)
+        {
+            var view = parent;
+            string className = $"{view?.GetType().Name}";
+
+            while (!className.Contains("PlatformRenderer") && view != null)
+            {
+                view = view.Parent;
+                className = $"{view?.GetType().Name}";
+            }
+
+            if (view is Android.Views.View androidView)
+            {
+                androidView.Focusable = false;
+                androidView.FocusableInTouchMode = false;
+            }
+        }
+
         #endregion
     }
 }

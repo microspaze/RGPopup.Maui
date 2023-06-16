@@ -11,13 +11,13 @@ namespace RGPopup.Maui.Services
 
         private readonly List<PopupPage> _popupStack = new List<PopupPage>();
 
-        public event EventHandler<PopupNavigationEventArgs> Pushing;
+        public event EventHandler<PopupNavigationEventArgs>? Pushing;
 
-        public event EventHandler<PopupNavigationEventArgs> Pushed;
+        public event EventHandler<PopupNavigationEventArgs>? Pushed;
 
-        public event EventHandler<PopupNavigationEventArgs> Popping;
+        public event EventHandler<PopupNavigationEventArgs>? Popping;
 
-        public event EventHandler<PopupNavigationEventArgs> Popped;
+        public event EventHandler<PopupNavigationEventArgs>? Popped;
 
         private static IPopupPlatform PopupPlatform
         {
@@ -42,7 +42,7 @@ namespace RGPopup.Maui.Services
             PopupPlatform.OnInitialized += OnInitialized;
         }
 
-        private async void OnInitialized(object sender, EventArgs e)
+        private async void OnInitialized(object? sender, EventArgs? e)
         {
             if (PopupStack.Count > 0)
                 await PopAllAsync(false);

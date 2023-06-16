@@ -31,9 +31,9 @@ public static class AppBuilderExtensions
             }).ConfigureMauiHandlers(handlers =>
             {
 #if ANDROID
-                handlers.TryAddCompatibilityRenderer(typeof(PopupPage), typeof(Droid.Renderers.PopupPageRenderer));
+                handlers.AddHandler(typeof(PopupPage), typeof(Droid.Impl.PopupPageHandlerDroid));
 #elif IOS
-                handlers.AddHandler(typeof(PopupPage), typeof(IOS.Renderers.PopupPageHandler));
+                handlers.AddHandler(typeof(PopupPage), typeof(PopupPageHandler));
 #endif
             });
         

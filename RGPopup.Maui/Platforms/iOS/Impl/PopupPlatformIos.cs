@@ -1,20 +1,13 @@
-﻿
-using CoreGraphics;
-
-using Foundation;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
-using Microsoft.Maui.Platform;
+﻿using Foundation;
 using RGPopup.Maui.Contracts;
 using RGPopup.Maui.Exceptions;
+using RGPopup.Maui.Extensions;
 using RGPopup.Maui.IOS.Extensions;
-using RGPopup.Maui.IOS.Impl;
 using RGPopup.Maui.IOS.Platform;
 using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
 
 using UIKit;
-
-using XFPlatform = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform;
 
 namespace RGPopup.Maui.IOS.Impl
 {
@@ -65,7 +58,7 @@ namespace RGPopup.Maui.IOS.Impl
                 window = new PopupWindow();
 
             window.BackgroundColor = UIColor.Clear;
-            window.RootViewController = new PopupPageRenderer(pageHandler);
+            window.RootViewController = new PopupPageRenderer(page);
             if (window.RootViewController.View != null)
                 window.RootViewController.View.BackgroundColor = UIColor.Clear;
             window.WindowLevel = UIWindowLevel.Normal;
@@ -82,7 +75,7 @@ namespace RGPopup.Maui.IOS.Impl
             if (page == null)
                 throw new RGPageInvalidException("Popup page is null");
             
-            var pageHandler = page.Handler as PopupPageHandler;
+            var pageHandler = page.GetHandler<PopupPageHandler>();
             var viewController = pageHandler?.ViewController;
 
             await Task.Delay(50);

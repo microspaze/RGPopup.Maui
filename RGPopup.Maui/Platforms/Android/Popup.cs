@@ -1,4 +1,6 @@
-﻿using Android.Content;
+﻿using System.Diagnostics;
+using Android.Content;
+using Android.Widget;
 using RGPopup.Maui.Contracts;
 using RGPopup.Maui.Droid.Impl;
 using RGPopup.Maui.Droid.Renderers;
@@ -13,6 +15,8 @@ namespace RGPopup.Maui
         internal static bool IsInitialized { get; private set; }
 
         internal static Context? Context { get; private set; }
+        
+        internal static FrameLayout? DecorView => (FrameLayout?)((Android.App.Activity?)Context)?.Window?.DecorView;
 
         public static bool Init(Context context)
         {

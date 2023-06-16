@@ -148,7 +148,7 @@ namespace RGPopup.Maui.Pages
             {
                 this.Content = new ContentView() { Content = this.Content, InputTransparent = false };
             }
-            
+
             base.OnParentSet();
         }
 

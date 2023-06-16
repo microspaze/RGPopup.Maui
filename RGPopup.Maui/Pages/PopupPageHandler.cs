@@ -1,12 +1,13 @@
+using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 
-namespace RGPopup.Maui.IOS.Renderers;
+namespace RGPopup.Maui.Pages;
 
 public class PopupPageHandler : PageHandler
 {
     public PopupPageHandler()
     {
-        var mauiContext = MauiUIApplicationDelegate.Current.Application.Windows[0].Handler?.MauiContext;
+        var mauiContext = IPlatformApplication.Current?.Application.Windows[0].Handler?.MauiContext;
         if (mauiContext != null)
         {
             base.SetMauiContext(mauiContext);

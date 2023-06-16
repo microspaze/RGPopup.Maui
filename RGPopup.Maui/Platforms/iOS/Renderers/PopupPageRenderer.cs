@@ -3,7 +3,6 @@ using System.Diagnostics;
 using CoreGraphics;
 
 using Foundation;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using RGPopup.Maui.IOS.Extensions;
 using RGPopup.Maui.Pages;
 
@@ -13,21 +12,22 @@ namespace RGPopup.Maui.IOS.Renderers
 {
     public class PopupPageRenderer : UIViewController
     {
-        private readonly PopupPageHandler _pageHandler;
         private readonly UIGestureRecognizer _tapGestureRecognizer;
         private NSObject? _willChangeFrameNotificationObserver;
         private NSObject? _willHideNotificationObserver;
         private bool _isDisposed;
+        
+        public PopupPage? CurrentElement { get; }
+        public PopupPageHandler? Handler { get; }
 
-        public PopupPageHandler? Handler => _pageHandler;
         internal CGRect KeyboardBounds { get; private set; } = CGRect.Empty;
-        internal PopupPage? CurrentElement => (PopupPage)(Handler?.VirtualView);
         
         #region Main Methods
 
-        public PopupPageRenderer(PopupPageHandler pageHandler)
+        public PopupPageRenderer(PopupPage popupPage)
         {
-            _pageHandler = pageHandler;
+            CurrentElement = popupPage;
+            Handler = popupPage?.Handler as PopupPageHandler;
             
             _tapGestureRecognizer = new UITapGestureRecognizer(OnTap)
             {
@@ -201,22 +201,22 @@ namespace RGPopup.Maui.IOS.Renderers
 
         public override UIViewController ChildViewControllerForStatusBarHidden()
         {
-            return _pageHandler?.ViewController!;
+            return Handler?.ViewController!;
         }
 
         public override bool PrefersStatusBarHidden()
         {
-            return _pageHandler?.ViewController?.PrefersStatusBarHidden() ?? false;
+            return Handler?.ViewController?.PrefersStatusBarHidden() ?? false;
         }
 
         public override UIViewController ChildViewControllerForStatusBarStyle()
         {
-            return _pageHandler?.ViewController!;
+            return Handler?.ViewController!;
         }
 
         public override UIStatusBarStyle PreferredStatusBarStyle()
         {
-            return (UIStatusBarStyle)(_pageHandler?.ViewController?.PreferredStatusBarStyle())!;
+            return (UIStatusBarStyle)(Handler?.ViewController?.PreferredStatusBarStyle())!;
         }
 
         public override bool ShouldAutorotate()
