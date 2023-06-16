@@ -53,7 +53,8 @@ namespace RGPopup.Maui.Services
             lock (_locker)
             {
                 if (_popupStack.Contains(page))
-                    throw new RGPageInvalidException("The page has been pushed already. Pop or remove the page before to push it again");
+                    return Task.FromResult(true);
+                    //throw new RGPageInvalidException("The page has been pushed already. Pop or remove the page before to push it again");
                 
                 Pushing?.Invoke(this, new PopupNavigationEventArgs(page, animate));
 

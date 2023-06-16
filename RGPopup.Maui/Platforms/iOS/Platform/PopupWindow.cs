@@ -38,11 +38,16 @@ namespace RGPopup.Maui.IOS.Platform
             if (formsElement.InputTransparent)
                 return null!;
 
+            var nativeView = pageHandler?.PlatformView;
             if ((formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
-                && hitTestResult.Equals(pageHandler?.PlatformView))
+                && nativeView != null
+                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(nativeView?.Subviews?.FirstOrDefault())))
             {
                 _ = formsElement.SendBackgroundClick();
-                return null!;
+                if (formsElement.BackgroundInputTransparent)
+                {
+                    return null!;
+                }
             }
 
             return hitTestResult;

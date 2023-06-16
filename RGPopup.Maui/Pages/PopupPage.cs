@@ -128,6 +128,7 @@ namespace RGPopup.Maui.Pages
         public PopupPage()
         {
             BackgroundColor = Color.FromArgb("#80000000");
+            InputTransparent = false;
         }
 
         /// <summary>
@@ -135,10 +136,10 @@ namespace RGPopup.Maui.Pages
         /// </summary>
         protected override void OnParentSet()
         {
-            /*if (this.Parent != null && this.Content is not ContentView)
+            if (this.Parent != null && this.Content is not ContentView)
             {
-                this.Content = new ContentView() { Content = this.Content, };
-            }*/
+                this.Content = new ContentView() { Content = this.Content, InputTransparent = false };
+            }
             
             base.OnParentSet();
         }
