@@ -54,7 +54,7 @@ namespace RGPopup.Maui.Pages
         public Thickness SystemPadding
         {
             get => (Thickness)GetValue(SystemPaddingProperty);
-            private set => SetValue(SystemPaddingProperty, value);
+            internal set => SetValue(SystemPaddingProperty, value);
         }
 
         public static readonly BindableProperty SystemPaddingSidesProperty = BindableProperty.Create(nameof(SystemPaddingSides), typeof(PaddingSide), typeof(PopupPage), PaddingSide.All);
@@ -135,10 +135,10 @@ namespace RGPopup.Maui.Pages
         /// </summary>
         protected override void OnParentSet()
         {
-            if (this.Parent != null && this.Content is not ContentView)
+            /*if (this.Parent != null && this.Content is not ContentView)
             {
                 this.Content = new ContentView() { Content = this.Content, };
-            }
+            }*/
             
             base.OnParentSet();
         }

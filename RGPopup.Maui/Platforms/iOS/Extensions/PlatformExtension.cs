@@ -28,21 +28,25 @@ namespace RGPopup.Maui.IOS.Extensions
             return renderer;
         }
 
-        public static void DisposeModelAndChildrenRenderers(this VisualElement view)
+        public static T GetOrCreateHandler<T>(this VisualElement bindable) where T : IViewHandler, new()
         {
-            var renderer = XFPlatform.GetRenderer(view);
-            if (renderer != null)
+            return (T)(bindable.Handler ??= new T());
+        }
+        
+        public static void DisposeModelAndChildrenHandlers(this VisualElement? view)
+        {
+            var handler = view?.Handler;
+            if (handler != null && handler.PlatformView is UIView nativeView)
             {
-                renderer.NativeView.RemoveFromSuperview();
-                renderer.Dispose();
+                handler.DisconnectHandler();
+                nativeView.RemoveFromSuperview();
+                nativeView.Dispose();
             }
-            XFPlatform.SetRenderer(view, null);
         }
 
         public static void UpdateSize(this PopupPageRenderer renderer)
         {
             var currentElement = renderer.CurrentElement;
-
             if (renderer.View?.Superview?.Frame == null || currentElement == null)
                 return;
 
@@ -82,9 +86,10 @@ namespace RGPopup.Maui.IOS.Extensions
             currentElement.SetValueFromRenderer(PopupPage.KeyboardOffsetProperty, keyboardOffset);
 
             var elementSize = new Size(superviewFrame.Width, superviewFrame.Height);
-
-            if (currentElement.Bounds.Size != elementSize)
-                renderer.SetElementSize(elementSize);
+            var elementBounds = currentElement.Bounds;
+            if (elementBounds.Size != elementSize)
+                currentElement.LayoutTo(new Rect(elementBounds.X, elementBounds.Y, elementSize.Width,
+                    elementSize.Height));
             else if (needForceLayout)
                 currentElement.ForceLayout();
         }

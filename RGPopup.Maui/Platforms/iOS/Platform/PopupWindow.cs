@@ -1,5 +1,6 @@
 ﻿using CoreGraphics;
 using Foundation;
+using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
 using UIKit;
 
@@ -26,17 +27,19 @@ namespace RGPopup.Maui.IOS.Platform
 
         public override UIView HitTest(CGPoint point, UIEvent? uievent)
         {
-            var platformRenderer = (PopupPlatformRenderer?)RootViewController;
-            var renderer = platformRenderer?.Renderer;
+            var platformRenderer = (PopupPageRenderer?)RootViewController;
+            var pageHandler = platformRenderer?.Handler;
             var hitTestResult = base.HitTest(point, uievent);
 
-            if (!(platformRenderer?.Renderer?.Element is PopupPage formsElement))
+            var formsElement = platformRenderer?.CurrentElement;
+            if (formsElement == null)
                 return hitTestResult;
 
             if (formsElement.InputTransparent)
                 return null!;
 
-            if (formsElement.BackgroundInputTransparent && renderer?.NativeView == hitTestResult)
+            if ((formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
+                && hitTestResult.Equals(pageHandler?.PlatformView))
             {
                 _ = formsElement.SendBackgroundClick();
                 return null!;

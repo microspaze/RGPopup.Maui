@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls.Compatibility.Hosting;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.LifecycleEvents;
 using RGPopup.Maui.Pages;
 
@@ -32,7 +33,7 @@ public static class AppBuilderExtensions
 #if ANDROID
                 handlers.TryAddCompatibilityRenderer(typeof(PopupPage), typeof(Droid.Renderers.PopupPageRenderer));
 #elif IOS
-                handlers.TryAddCompatibilityRenderer(typeof(PopupPage), typeof(IOS.Renderers.PopupPageRenderer));
+                handlers.AddHandler(typeof(PopupPage), typeof(IOS.Renderers.PopupPageHandler));
 #endif
             });
         

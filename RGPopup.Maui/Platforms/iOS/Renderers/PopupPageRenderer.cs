@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using CoreGraphics;
 
 using Foundation;
@@ -10,24 +11,33 @@ using UIKit;
 
 namespace RGPopup.Maui.IOS.Renderers
 {
-    public class PopupPageRenderer : PageRenderer
+    public class PopupPageRenderer : UIViewController
     {
+        private readonly PopupPageHandler _pageHandler;
         private readonly UIGestureRecognizer _tapGestureRecognizer;
         private NSObject? _willChangeFrameNotificationObserver;
         private NSObject? _willHideNotificationObserver;
         private bool _isDisposed;
 
+        public PopupPageHandler? Handler => _pageHandler;
         internal CGRect KeyboardBounds { get; private set; } = CGRect.Empty;
-        internal PopupPage CurrentElement => (PopupPage)Element;
+        internal PopupPage? CurrentElement => (PopupPage)(Handler?.VirtualView);
         
         #region Main Methods
 
-        public PopupPageRenderer()
+        public PopupPageRenderer(PopupPageHandler pageHandler)
         {
+            _pageHandler = pageHandler;
+            
             _tapGestureRecognizer = new UITapGestureRecognizer(OnTap)
             {
                 CancelsTouchesInView = false
             };
+        }
+        
+        public PopupPageRenderer(IntPtr handle) : base(handle)
+        {
+            // Fix #307
         }
 
         protected override void Dispose(bool disposing)
@@ -48,10 +58,12 @@ namespace RGPopup.Maui.IOS.Renderers
 
         private void OnTap(UITapGestureRecognizer e)
         {
+            if (CurrentElement == null) return;
+            
             var view = e.View;
             var location = e.LocationInView(view);
             var subview = view.HitTest(location, null);
-            if (Equals(subview, view.Subviews.FirstOrDefault()))
+            if (Equals(subview, view))
             {
                 _ = CurrentElement.SendBackgroundClick();
             }
@@ -105,8 +117,8 @@ namespace RGPopup.Maui.IOS.Renderers
                 return;
 
             base.ViewDidLayoutSubviews();
-
             this.UpdateSize();
+            PresentedViewController?.ViewDidLayoutSubviews();
         }
 
         #endregion
@@ -164,6 +176,68 @@ namespace RGPopup.Maui.IOS.Renderers
 
             ViewDidLayoutSubviews();
         }
+
+        #endregion
+
+        #region Override Methods
+        
+         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+        {
+            if ((ChildViewControllers != null) && (ChildViewControllers.Length > 0))
+            {
+                return ChildViewControllers[0].GetSupportedInterfaceOrientations();
+            }
+            return base.GetSupportedInterfaceOrientations();
+        }
+
+        public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+        {
+            if ((ChildViewControllers != null) && (ChildViewControllers.Length > 0))
+            {
+                return ChildViewControllers[0].PreferredInterfaceOrientationForPresentation();
+            }
+            return base.PreferredInterfaceOrientationForPresentation();
+        }
+
+        public override UIViewController ChildViewControllerForStatusBarHidden()
+        {
+            return _pageHandler?.ViewController!;
+        }
+
+        public override bool PrefersStatusBarHidden()
+        {
+            return _pageHandler?.ViewController?.PrefersStatusBarHidden() ?? false;
+        }
+
+        public override UIViewController ChildViewControllerForStatusBarStyle()
+        {
+            return _pageHandler?.ViewController!;
+        }
+
+        public override UIStatusBarStyle PreferredStatusBarStyle()
+        {
+            return (UIStatusBarStyle)(_pageHandler?.ViewController?.PreferredStatusBarStyle())!;
+        }
+
+        public override bool ShouldAutorotate()
+        {
+            if ((ChildViewControllers != null) && (ChildViewControllers.Length > 0))
+            {
+                return ChildViewControllers[0].ShouldAutorotate();
+            }
+            return base.ShouldAutorotate();
+        }
+
+        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+        {
+            if ((ChildViewControllers != null) && (ChildViewControllers.Length > 0))
+            {
+                return ChildViewControllers[0].ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+            }
+            return base.ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+        }
+
+        public override bool ShouldAutomaticallyForwardRotationMethods => true;
 
         #endregion
     }

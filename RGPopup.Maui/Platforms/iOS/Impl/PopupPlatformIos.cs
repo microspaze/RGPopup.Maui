@@ -9,6 +9,7 @@ using RGPopup.Maui.Exceptions;
 using RGPopup.Maui.IOS.Extensions;
 using RGPopup.Maui.IOS.Impl;
 using RGPopup.Maui.IOS.Platform;
+using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
 
 using UIKit;
@@ -46,8 +47,8 @@ namespace RGPopup.Maui.IOS.Impl
             var keyWindow = UIApplication.SharedApplication.GetKeyWindow();
             if (keyWindow?.WindowLevel == UIWindowLevel.Normal)
                 keyWindow.WindowLevel = -1;
-
-            var renderer = page.GetOrCreateRenderer();
+            
+            var pageHandler = page.GetOrCreateHandler<PopupPageHandler>();
 
             PopupWindow window;
             if (IsiOS13OrNewer)
@@ -63,32 +64,32 @@ namespace RGPopup.Maui.IOS.Impl
             else
                 window = new PopupWindow();
 
-            window.BackgroundColor = Colors.Transparent.ToPlatform();
-            window.RootViewController = new PopupPlatformRenderer(renderer);
+            window.BackgroundColor = UIColor.Clear;
+            window.RootViewController = new PopupPageRenderer(pageHandler);
             if (window.RootViewController.View != null)
-                window.RootViewController.View.BackgroundColor = Colors.Transparent.ToPlatform();
+                window.RootViewController.View.BackgroundColor = UIColor.Clear;
             window.WindowLevel = UIWindowLevel.Normal;
             window.MakeKeyAndVisible();
-
-            if (!IsiOS9OrNewer)
-                window.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
-
-            return window.RootViewController.PresentViewControllerAsync(renderer.ViewController, false);
+            
+            pageHandler.ViewController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+            pageHandler.ViewController.ModalTransitionStyle = UIModalTransitionStyle.CoverVertical;
+            
+            return window.RootViewController.PresentViewControllerAsync(pageHandler.ViewController!, false);
         }
 
         public async Task RemoveAsync(PopupPage page)
         {
             if (page == null)
                 throw new RGPageInvalidException("Popup page is null");
-
-            var renderer = page.GetRenderer();
-            var viewController = renderer?.ViewController;
+            
+            var pageHandler = page.Handler as PopupPageHandler;
+            var viewController = pageHandler?.ViewController;
 
             await Task.Delay(50);
 
             page.DescendantRemoved -= HandleChildRemoved;
 
-            if (renderer != null && viewController != null && !viewController.IsBeingDismissed)
+            if (pageHandler != null && viewController != null && !viewController.IsBeingDismissed)
             {
                 var window = viewController.View?.Window;
                 page.Parent = null;
@@ -98,7 +99,7 @@ namespace RGPopup.Maui.IOS.Impl
                     if (rvc != null)
                     {
                         await rvc.DismissViewControllerAsync(false);
-                        DisposeModelAndChildrenRenderers(page);
+                        page.DisposeModelAndChildrenHandlers();
                         rvc.Dispose();
                     }
                     window.RootViewController = null;
@@ -117,23 +118,12 @@ namespace RGPopup.Maui.IOS.Impl
             }
         }
 
-        private static void DisposeModelAndChildrenRenderers(VisualElement view)
-        {
-            var renderer = view.GetRenderer();
-            if (renderer != null)
-            {
-                renderer.NativeView.RemoveFromSuperview();
-                renderer.NativeView.Dispose();
-                //If manual dispose the view's renderer, but the view is not disposed at the same time, it will crash when repush the view.
-                //renderer.Dispose();
-            }
-            //XFPlatform.SetRenderer(view, null);
-        }
-
         private void HandleChildRemoved(object? sender, ElementEventArgs e)
         {
-            var view = e.Element;
-            DisposeModelAndChildrenRenderers((VisualElement)view);
+            if (e.Element is VisualElement view)
+            {
+                view.DisposeModelAndChildrenHandlers();
+            }
         }
     }
 }
