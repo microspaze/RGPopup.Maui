@@ -48,6 +48,14 @@ namespace RGPopup.Maui.Pages
             get => (IPopupAnimation?)GetValue(AnimationProperty);
             set => SetValue(AnimationProperty, value);
         }
+        
+        public static readonly BindableProperty SafePaddingProperty = BindableProperty.Create(nameof(SafePadding), typeof(Thickness), typeof(PopupPage), new Thickness(20), BindingMode.OneWayToSource);
+
+        public Thickness SafePadding
+        {
+            get => (Thickness)GetValue(SafePaddingProperty);
+            internal set => SetValue(SafePaddingProperty, value);
+        }
 
         public static readonly BindableProperty SystemPaddingProperty = BindableProperty.Create(nameof(SystemPadding), typeof(Thickness), typeof(PopupPage), default(Thickness), BindingMode.OneWayToSource);
 
