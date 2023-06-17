@@ -269,6 +269,10 @@ namespace RGPopup.Maui.Droid.Renderers
                     //Prevent other view handle the click event.
                     return true;
                 }
+            } else if (!CurrentElement.CloseWhenBackgroundIsClicked)
+            {
+                //Prevent other view handle the click event.
+                return true;
             }
 
             return baseValue;
