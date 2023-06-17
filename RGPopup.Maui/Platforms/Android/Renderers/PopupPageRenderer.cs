@@ -257,9 +257,12 @@ namespace RGPopup.Maui.Droid.Renderers
                 var isInSafePadding = !isInRegion && IsInSafePadding(e.RawX, e.RawY);
                 if ((hasCommand && !isInSafePadding) || (ChildCount > 0 && !isInRegion && !isInSafePadding) || ChildCount == 0)
                 {
-                    CurrentElement?.SendBackgroundClick();
-                    //Prevent other view handle the click event.
-                    return true;
+                    _ = CurrentElement.SendBackgroundClick();
+                    if (!CurrentElement.BackgroundInputTransparent)
+                    {
+                        //Prevent other view handle the click event.
+                        return true;
+                    }
                 }
                 else if (isInSafePadding)
                 {
