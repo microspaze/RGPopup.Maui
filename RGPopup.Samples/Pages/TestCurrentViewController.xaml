@@ -10,7 +10,7 @@
       <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
           <Frame BackgroundColor="Silver">
               <StackLayout Spacing="20">
-                  <Label HorizontalOptions="Center" Text="index" FontSize="16"></Label>
+                  <Label HorizontalOptions="Center" Text="BackgroundInputTransparent" FontSize="16"></Label>
                   <Label HorizontalOptions="Center" FontSize="16" x:Name="indexLable"></Label>
                   <Button Text="Open TestCurrentViewController" Clicked="OnTestCurrentViewController"></Button>
                   <Button Text="Open file picker" Clicked="OnFilePicker"></Button>
