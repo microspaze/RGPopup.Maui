@@ -15,7 +15,7 @@ namespace RGPopup.Maui.IOS.Extensions
         public static void DisposeModelAndChildrenHandlers(this VisualElement? view)
         {
             var handler = view?.Handler;
-            if (handler != null && handler.PlatformView is UIView nativeView)
+            if (handler is { PlatformView: UIView nativeView })
             {
                 handler.DisconnectHandler();
                 nativeView.RemoveFromSuperview();

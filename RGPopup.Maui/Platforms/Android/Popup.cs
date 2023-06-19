@@ -3,10 +3,9 @@ using Android.Content;
 using Android.Widget;
 using RGPopup.Maui.Contracts;
 using RGPopup.Maui.Droid.Impl;
-using RGPopup.Maui.Droid.Renderers;
 using RGPopup.Maui.Services;
 
-namespace RGPopup.Maui
+namespace RGPopup.Maui.Droid
 {
     public static class Popup
     {

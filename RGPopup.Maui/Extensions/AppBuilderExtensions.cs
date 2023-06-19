@@ -16,16 +16,16 @@ public static class AppBuilderExtensions
 #if ANDROID
                 lifecycle.AddAndroid(b =>
                 {
-                    b.OnBackPressed(activity => Popup.SendBackPressed(backPressHandler));
+                    b.OnBackPressed(activity => Droid.Popup.SendBackPressed(backPressHandler));
                     b.OnCreate((activity, state) =>
                     {
-                        Popup.Init(activity);
+                        Droid.Popup.Init(activity);
                     });
                 });
 #elif IOS
                 lifecycle.AddiOS(b =>
                 {
-                    b.FinishedLaunching((application, launchOptions) => Popup.Init());
+                    b.FinishedLaunching((application, launchOptions) => IOS.Popup.Init());
                 });
 #endif
             }).ConfigureMauiHandlers(handlers =>

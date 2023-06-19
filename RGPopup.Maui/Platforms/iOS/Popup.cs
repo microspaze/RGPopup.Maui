@@ -1,8 +1,7 @@
 ﻿using RGPopup.Maui.Contracts;
 using RGPopup.Maui.IOS.Impl;
-using RGPopup.Maui.IOS.Renderers;
 
-namespace RGPopup.Maui
+namespace RGPopup.Maui.IOS
 {
     public static class Popup
     {
