@@ -27,12 +27,19 @@ public static class AppBuilderExtensions
                 {
                     b.FinishedLaunching((application, launchOptions) => IOS.Popup.Init());
                 });
+#elif MACCATALYST
+                lifecycle.AddiOS(b =>
+                {
+                    b.FinishedLaunching((application, launchOptions) => MacOS.Popup.Init());
+                });
 #endif
             }).ConfigureMauiHandlers(handlers =>
             {
 #if ANDROID
                 handlers.AddHandler(typeof(PopupPage), typeof(Droid.Impl.PopupPageHandlerDroid));
 #elif IOS
+                handlers.AddHandler(typeof(PopupPage), typeof(PopupPageHandler));
+#elif MACCATALYST
                 handlers.AddHandler(typeof(PopupPage), typeof(PopupPageHandler));
 #endif
             });

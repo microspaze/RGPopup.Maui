@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks>net7.0-maccatalyst;</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>RGPopup.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -13,7 +13,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.i7chi.rgpopup.samples</ApplicationId>
-		<ApplicationIdGuid>9fa864e4-3bda-4848-9baa-172d06ad44cf</ApplicationIdGuid>
+		<ApplicationIdGuid>9fa864e4-3bda-4848-9baa-172d06ad44cg</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -25,6 +25,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<AssemblyName>RGPopup.Samples</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

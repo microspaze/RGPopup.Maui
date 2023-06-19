@@ -1,0 +1,43 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGPopup.Maui", "RGPopup.Maui\RGPopup.Maui.csproj", "{F4A201F4-3F68-4135-A4BE-F948C079EA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGPopup.Samples", "RGPopup.Samples\RGPopup.Samples.Mac.csproj", "{907874F3-8830-4BF4-9AD6-02F296417335}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Device = Debug|Device
+		Debug|Simulator = Debug|Simulator
+		Release|Device = Release|Device
+		Release|Simulator = Release|Simulator
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Device.ActiveCfg = Debug|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Device.Build.0 = Debug|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Simulator.ActiveCfg = Debug|Simulator
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Simulator.Build.0 = Debug|Simulator
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Device.ActiveCfg = Release|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Device.Build.0 = Release|Device
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.ActiveCfg = Release|Simulator
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.Build.0 = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.ActiveCfg = Debug|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.Build.0 = Debug|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.ActiveCfg = Debug|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.Build.0 = Debug|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.ActiveCfg = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Build.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Deploy.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.ActiveCfg = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.Build.0 = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.Deploy.0 = Debug|Device
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {062FC104-C2F1-40FF-9F31-9A530841920C}
+	EndGlobalSection
+EndGlobal
