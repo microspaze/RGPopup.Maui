@@ -19,10 +19,6 @@ namespace RGPopup.Samples
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                .ConfigureMauiHandlers((handlers) =>
-                {
-                    //handlers.AddHandler(typeof(Shell), typeof(ShellRenderer));
                 });
 
 #if DEBUG
