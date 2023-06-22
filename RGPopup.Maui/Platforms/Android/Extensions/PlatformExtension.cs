@@ -5,7 +5,7 @@ namespace RGPopup.Maui.Droid.Extensions
 {
     internal static class PlatformExtension
     {
-        public static IVisualElementRenderer GetOrCreateRenderer(this VisualElement bindable)
+        public static IVisualElementRenderer? GetOrCreateRenderer(this VisualElement bindable)
         {
             if (bindable == null) return null;
             IVisualElementRenderer? renderer = null;

@@ -10,7 +10,7 @@ public static class AppBuilderExtensions
     public static MauiAppBuilder UseMauiRGPopup(this MauiAppBuilder builder, Action? backPressHandler = null)
     {
         builder
-            .UseMauiCompatibility()
+            //.UseMauiCompatibility() //This will cause ContentView in Popup not display on Windows platform.
             .ConfigureLifecycleEvents(lifecycle =>
             {
 #if ANDROID
@@ -32,6 +32,11 @@ public static class AppBuilderExtensions
                 {
                     b.FinishedLaunching((application, launchOptions) => MacOS.Popup.Init());
                 });
+#elif WINDOWS
+                lifecycle.AddWindows(b =>
+                {
+                    b.OnLaunching((application, args) => Windows.Popup.Init());
+                });
 #endif
             }).ConfigureMauiHandlers(handlers =>
             {
@@ -41,6 +46,8 @@ public static class AppBuilderExtensions
                 handlers.AddHandler(typeof(PopupPage), typeof(PopupPageHandler));
 #elif MACCATALYST
                 handlers.AddHandler(typeof(PopupPage), typeof(PopupPageHandler));
+#elif WINDOWS
+                handlers.AddHandler(typeof(PopupPage), typeof(Windows.Impl.PopupPageHandlerWindows));
 #endif
             });
         

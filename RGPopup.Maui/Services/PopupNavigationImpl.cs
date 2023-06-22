@@ -24,7 +24,6 @@ namespace RGPopup.Maui.Services
             get
             {
                 var popupPlatform = DependencyService.Get<IPopupPlatform>();
-
                 if (popupPlatform == null)
                     throw new RGInitialisationException("You MUST install RGPopup.Maui to each project and call RGPopup.Maui.Popup.Init(); prior to using it.\nSee more info: " + Config.InitializationDescriptionUrl);
 

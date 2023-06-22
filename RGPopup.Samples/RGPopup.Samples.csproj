@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>RGPopup.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -36,6 +37,11 @@
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
+		
+		<!-- Image Files -->
+		<MauiImage Include="Resources\Images\*.svg"/>
+		<MauiImage Include="Resources\Images\*.jpg"/>
+		<MauiImage Include="Resources\Images\*.png"/>
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />

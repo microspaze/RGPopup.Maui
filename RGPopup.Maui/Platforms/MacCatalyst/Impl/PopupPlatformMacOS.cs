@@ -64,8 +64,11 @@ namespace RGPopup.Maui.MacOS.Impl
             window.WindowLevel = UIWindowLevel.Normal;
             window.MakeKeyAndVisible();
             
-            pageHandler.ViewController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-            pageHandler.ViewController.ModalTransitionStyle = UIModalTransitionStyle.CoverVertical;
+            if (pageHandler.ViewController != null)
+            {
+                pageHandler.ViewController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+                pageHandler.ViewController.ModalTransitionStyle = UIModalTransitionStyle.CoverVertical;
+            }
             
             return window.RootViewController.PresentViewControllerAsync(pageHandler.ViewController!, false);
         }

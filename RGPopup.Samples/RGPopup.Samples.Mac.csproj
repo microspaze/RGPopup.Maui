@@ -42,7 +42,9 @@
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Image Files -->
-		<MauiImage Include="Resources\Images\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiImage Include="Resources\Images\*.svg"/>
+		<MauiImage Include="Resources\Images\*.jpg"/>
+		<MauiImage Include="Resources\Images\*.png"/>
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />

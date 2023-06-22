@@ -1,10 +1,6 @@
-﻿using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
-using RGPopup.Maui.IOS.Renderers;
+﻿using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
 using UIKit;
-
-using XFPlatform = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform;
 
 namespace RGPopup.Maui.IOS.Extensions
 {
