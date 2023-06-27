@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -17,10 +17,31 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Nullable>enable</Nullable>
 		<Configurations>Debug;Release</Configurations>
+		<Title>$(AssemblyName)</Title>
+		<Description>Popup controls for .NET MAUI migrated from Rg.Plugins.Popup for Xamarin with some fixes.</Description>
+		<Copyright>MIT</Copyright>
+		<PackageProjectUrl>https://github.com/microspaze/RGPopup.Maui</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/microspaze/RGPopup.Maui</RepositoryUrl>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENSE.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
