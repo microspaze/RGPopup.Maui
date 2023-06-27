@@ -22,7 +22,6 @@
 		<Copyright>MIT</Copyright>
 		<PackageProjectUrl>https://github.com/microspaze/RGPopup.Maui</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/microspaze/RGPopup.Maui</RepositoryUrl>
-		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
