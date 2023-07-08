@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGPopup.Samples", "RGPopup.Samples\RGPopup.Samples.iOS.csproj", "{907874F3-8830-4BF4-9AD6-02F296417335}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Device = Debug|Device
+		Debug|Simulator = Debug|Simulator
+		Release|Device = Release|Device
+		Release|Simulator = Release|Simulator
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.ActiveCfg = Debug|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.Build.0 = Debug|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.ActiveCfg = Debug|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.Build.0 = Debug|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.ActiveCfg = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Build.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Deploy.0 = Release|Device
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.ActiveCfg = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.Build.0 = Release|Simulator
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {062FC104-C2F1-40FF-9F31-9A530841920C}
+	EndGlobalSection
+EndGlobal
