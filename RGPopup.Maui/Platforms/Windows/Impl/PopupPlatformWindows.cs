@@ -10,7 +10,6 @@ using WindowsThickness = Microsoft.UI.Xaml.Thickness;
 using XamlStyle = Microsoft.UI.Xaml.Style;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace RGPopup.Maui.Windows.Impl
 {
