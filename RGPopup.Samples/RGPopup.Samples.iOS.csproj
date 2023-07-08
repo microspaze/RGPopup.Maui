@@ -59,7 +59,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="RGPopup.Maui" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RGPopup.Maui\RGPopup.Maui.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
