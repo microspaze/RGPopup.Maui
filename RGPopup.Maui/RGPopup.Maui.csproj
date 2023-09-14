@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -23,7 +23,9 @@
 		<PackageProjectUrl>https://github.com/microspaze/RGPopup.Maui</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/microspaze/RGPopup.Maui</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
+		<PackageTags>Popup Maui;Rg.Plugins.Popup Maui</PackageTags>
+		<PackageReleaseNotes>Fix PopupPage OnAppearing &amp; OnDisappearing not work issue.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
