@@ -144,9 +144,17 @@ namespace RGPopup.Maui.Pages
         /// </summary>
         protected override void OnParentSet()
         {
-            if (this.Parent != null && this.Content is not ContentView)
+            if (this.Parent != null)
             {
-                this.Content = new ContentView() { Content = this.Content, InputTransparent = false };
+                this.SendAppearing();
+                if (this.Content is not ContentView)
+                {
+                    this.Content = new ContentView() { Content = this.Content, InputTransparent = false };
+                }
+            }
+            else
+            {
+                this.SendDisappearing();
             }
 
             base.OnParentSet();

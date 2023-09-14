@@ -14,6 +14,16 @@ namespace RGPopup.Samples.Pages
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
         protected override void OnAppearingAnimationBegin()
         {
             base.OnAppearingAnimationBegin();
