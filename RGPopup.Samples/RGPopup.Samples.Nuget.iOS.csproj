@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-ios</TargetFrameworks>
+		<TargetFrameworks>net8.0-ios</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>RGPopup.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -59,7 +59,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="RGPopup.Maui" Version="1.0.1" />
+		<PackageReference Include="RGPopup.Maui" Version="1.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -50,6 +50,12 @@ You can find all descriptions of
 [Troubleshooting](https://github.com/rotorgames/Rg.Plugins.Popup/wiki/Troubleshooting) and etc in the 
 [Wiki](https://github.com/rotorgames/Rg.Plugins.Popup/wiki)
 
+## Release Notes
+
+## 1.0.3
+
+1.Add .NET 8 support.
+
 
 ## License
 The MIT License (MIT) see [License file](LICENSE)
