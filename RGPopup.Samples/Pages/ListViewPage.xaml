@@ -9,8 +9,8 @@
             Padding="20,20,20,20"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Center">
-            <StackLayout BackgroundColor="White" HeightRequest="300">
-                <ListView x:Name="listView">
+            <StackLayout BackgroundColor="White">
+                <ListView x:Name="listView" HeightRequest="300">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding .}" TextColor="Black" />
