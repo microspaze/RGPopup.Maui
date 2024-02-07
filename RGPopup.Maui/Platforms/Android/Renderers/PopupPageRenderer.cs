@@ -22,12 +22,15 @@ namespace RGPopup.Maui.Droid.Renderers
         private static double _contentHeight = 0D;
         private static double _contentX = 0D;
         private static double _contentY = 0D;
+        private static readonly bool _isVersionM = Build.VERSION.SdkInt >= BuildVersionCodes.M;
+        private static readonly bool _isVersionQ = Build.VERSION.SdkInt >= BuildVersionCodes.Q;
         
         private readonly RgGestureDetectorListener _gestureDetectorListener;
         private readonly GestureDetector _gestureDetector;
         private DateTime _downTime;
         private Point _downPosition;
         private bool _disposed;
+        private WindowInsets? _windowInsets => _isVersionM ? RootWindowInsets : null;
 
         public PopupPage? CurrentElement { get; }
         public Microsoft.Maui.Controls.View? PopupContent { get; }
@@ -79,27 +82,24 @@ namespace RGPopup.Maui.Droid.Renderers
 
             decoreView?.GetWindowVisibleDisplayFrame(visibleRect);
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M && RootWindowInsets != null)
+            if (_isVersionM && _windowInsets != null)
             {
                 var h = b - t;
-
-                var windowInsets = RootWindowInsets;
-                var bottomPadding = Math.Min(windowInsets.StableInsetBottom, windowInsets.SystemWindowInsetBottom);
-
-                if (h - visibleRect.Bottom > windowInsets.StableInsetBottom)
+                var bottomPadding = Math.Min(_windowInsets.StableInsetBottom, _windowInsets.SystemWindowInsetBottom);
+                if (h - visibleRect.Bottom > _windowInsets.StableInsetBottom)
                 {
                     keyboardOffset = Context.FromPixels(h - visibleRect.Bottom);
                 }
 
                 systemPadding = new Thickness
                 {
-                    Left = Context.FromPixels(windowInsets.SystemWindowInsetLeft),
-                    Top = Context.FromPixels(windowInsets.SystemWindowInsetTop),
-                    Right = Context.FromPixels(windowInsets.SystemWindowInsetRight),
+                    Left = Context.FromPixels(_windowInsets.SystemWindowInsetLeft),
+                    Top = Context.FromPixels(_windowInsets.SystemWindowInsetTop),
+                    Right = Context.FromPixels(_windowInsets.SystemWindowInsetRight),
                     Bottom = Context.FromPixels(bottomPadding)
                 };
             }
-            else if (Build.VERSION.SdkInt < BuildVersionCodes.M && decoreView != null)
+            else if (!_isVersionM && decoreView != null)
             {
                 var screenSize = new Android.Graphics.Point();
                 activity?.WindowManager?.DefaultDisplay?.GetSize(screenSize);
@@ -150,12 +150,15 @@ namespace RGPopup.Maui.Droid.Renderers
                 _windowWidth = DecorView.Width;
                 _windowHeight = DecorView.Height;
 
-                var safePadding = CurrentElement.SafePadding;
-                var gestureInsets = RootWindowInsets.SystemGestureInsets;
-                _safePadding.Left = Math.Max(safePadding.Left * _sizeRatio, gestureInsets.Left);
-                _safePadding.Right = Math.Max(safePadding.Right * _sizeRatio, gestureInsets.Right);
-                _safePadding.Top = Math.Max(safePadding.Top * _sizeRatio, gestureInsets.Top);
-                _safePadding.Bottom = Math.Max(safePadding.Bottom * _sizeRatio, gestureInsets.Bottom);
+                if (_isVersionQ && _windowInsets != null)
+                {
+                    var safePadding = CurrentElement.SafePadding;
+                    var gestureInsets = _windowInsets.SystemGestureInsets;
+                    _safePadding.Left = Math.Max(safePadding.Left * _sizeRatio, gestureInsets.Left);
+                    _safePadding.Right = Math.Max(safePadding.Right * _sizeRatio, gestureInsets.Right);
+                    _safePadding.Top = Math.Max(safePadding.Top * _sizeRatio, gestureInsets.Top);
+                    _safePadding.Bottom = Math.Max(safePadding.Bottom * _sizeRatio, gestureInsets.Bottom);
+                }
             }
             
             base.OnLayout(changed, l, t, r, b);
