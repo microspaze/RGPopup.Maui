@@ -52,6 +52,10 @@ You can find all descriptions of
 
 ## Release Notes
 
+## 1.0.4
+
+1.Fix getSystemGestureInsets NoSuchMethodError when targeting to android sdk version 29. (Thanks Reported By https://github.com/Kas-code & https://github.com/sakshi-pagematics)
+
 ## 1.0.3
 
 1.Add .NET 8 support.
