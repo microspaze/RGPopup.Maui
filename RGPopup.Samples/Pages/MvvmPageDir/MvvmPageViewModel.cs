@@ -5,6 +5,7 @@ namespace RGPopup.Samples.Pages
     public class MvvmPageViewModel
     {
         public ICommand BackgroundClickedCommand => new Command(BackgroundClickedCommandExecute);
+        public ICommand TapGestureClickedCommand => new Command(BackgroundClickedCommandExecute);
 
         private void BackgroundClickedCommandExecute(object parameter)
         {

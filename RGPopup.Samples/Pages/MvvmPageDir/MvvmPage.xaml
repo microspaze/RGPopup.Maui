@@ -19,6 +19,11 @@
                            VerticalOptions="CenterAndExpand"
                            HorizontalOptions="CenterAndExpand"/>
                     <Button TextColor="Black" BackgroundColor="White" Text="Close" Clicked="OnClose"></Button>
+                    <Button Text="Double Tap Gesture">
+                        <Button.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapGestureClickedCommand}" CommandParameter="{x:Reference ClickOnBackgroundLabel}" NumberOfTapsRequired="2" />
+                        </Button.GestureRecognizers>
+                    </Button>
                 </StackLayout>
             </Frame>
         </ContentView>

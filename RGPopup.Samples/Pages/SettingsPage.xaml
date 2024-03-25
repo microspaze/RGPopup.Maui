@@ -16,6 +16,11 @@
                         <Label Text="Close on Background Click" />
                     </StackLayout>
                     <Button Text="Close" Clicked="OnClose"></Button>
+                    <Button Text="Double Tap Close">
+                        <Button.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureClose" NumberOfTapsRequired="2"/>
+                        </Button.GestureRecognizers>
+                    </Button>
                 </StackLayout>
             </Frame>
         </StackLayout>

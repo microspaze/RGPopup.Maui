@@ -14,5 +14,10 @@ namespace RGPopup.Samples.Pages
         {
             PopupNavigation.Instance.PopAsync();
         }
+
+        private void OnTapGestureClose(object sender, TappedEventArgs e)
+        {
+            PopupNavigation.Instance.PopAsync();
+        }
     }
 }
