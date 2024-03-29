@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 
 namespace RGPopup.Maui.Converters.TypeConverters
 {
     public class UintTypeConverter : TypeConverter
     {
-        public new object ConvertFromInvariantString(string value)
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
         {
             try
             {
