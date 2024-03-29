@@ -1,79 +1,88 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<OutputType>Exe</OutputType>
-		<RootNamespace>RGPopup.Samples</RootNamespace>
-		<UseMaui>true</UseMaui>
-		<SingleProject>true</SingleProject>
-		<ImplicitUsings>enable</ImplicitUsings>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0-android</TargetFrameworks>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>RGPopup.Samples</RootNamespace>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
 
-		<!-- Display name -->
-		<ApplicationTitle>RGPopup.Samples</ApplicationTitle>
+        <!-- Display name -->
+        <ApplicationTitle>RGPopup.Samples</ApplicationTitle>
 
-		<!-- App Identifier -->
-		<ApplicationId>com.i7chi.rgpopup.samples</ApplicationId>
-		<ApplicationIdGuid>9fa864e4-3bda-4848-9baa-172d06ad44cf</ApplicationIdGuid>
+        <!-- App Identifier -->
+        <ApplicationId>com.i7chi.rgpopup.samples</ApplicationId>
+        <ApplicationIdGuid>9fa864e4-3bda-4848-9baa-172d06ad44cf</ApplicationIdGuid>
 
-		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+        <!-- Versions -->
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-		<AssemblyName>RGPopup.Samples</AssemblyName>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+        <AssemblyName>RGPopup.Samples</AssemblyName>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+      <ApplicationTitle>RGPopup</ApplicationTitle>
+    </PropertyGroup>
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-		
-		<!-- Image Files -->
-		<MauiImage Include="Resources\Images\*.svg"/>
-		<MauiImage Include="Resources\Images\*.jpg"/>
-		<MauiImage Include="Resources\Images\*.png"/>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+      <ApplicationTitle>RGPopup</ApplicationTitle>
+    </PropertyGroup>
 
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+    <ItemGroup>
+        <!-- App Icon -->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-	</ItemGroup>
+        <!-- Splash Screen -->
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        
+        <!-- Image Files -->
+        <MauiImage Include="Resources\Images\*.svg" />
+        <MauiImage Include="Resources\Images\*.jpg" />
+        <MauiImage Include="Resources\Images\*.png" />
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
+        <!-- Custom Fonts -->
+        <MauiFont Include="Resources\Fonts\*" />
 
-	<ItemGroup>
-	  <ProjectReference Include="..\RGPopup.Maui\RGPopup.Maui.csproj" />
-	</ItemGroup>
+        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Compile Remove="Platforms\iOS\**" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <EmbeddedResource Remove="Platforms\iOS\**" />
-	</ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\RGPopup.Maui\RGPopup.Maui.csproj" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Remove="Platforms\iOS\**" />
-	</ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Platforms\iOS\**" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <MauiCss Remove="Platforms\iOS\**" />
-	</ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Platforms\iOS\**" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="Platforms\iOS\**" />
-	</ItemGroup>
+    <ItemGroup>
+      <MauiXaml Remove="Platforms\iOS\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiCss Remove="Platforms\iOS\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Platforms\iOS\**" />
+    </ItemGroup>
 
 </Project>
