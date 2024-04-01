@@ -52,6 +52,10 @@ You can find all descriptions of
 
 ## Release Notes
 
+## 1.0.5
+
+1.Fix The application eventually crashes #5. (Thanks Reported by https://github.com/andersondamasio)
+
 ## 1.0.4
 
 1.Fix getSystemGestureInsets NoSuchMethodError when targeting to android sdk version 29. (Thanks Reported By https://github.com/Kas-code & https://github.com/sakshi-pagematics)
