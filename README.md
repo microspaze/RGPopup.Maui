@@ -52,6 +52,11 @@ You can find all descriptions of
 
 ## Release Notes
 
+
+## 1.0.6
+
+1.Fix The specified child already has a parent. You must call removeView() on the child's parent first. #6. (Thanks Reported by https://github.com/ntbao17)
+
 ## 1.0.5
 
 1.Fix The application eventually crashes #5. (Thanks Reported by https://github.com/andersondamasio)
