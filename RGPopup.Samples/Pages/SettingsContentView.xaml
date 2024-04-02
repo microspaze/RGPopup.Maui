@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="RGPopup.Samples.Pages.SettingsContentView">
+    <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center">
+        <Frame BackgroundColor="Silver">
+            <StackLayout Spacing="20">
+                <Label HorizontalOptions="Center"
+                           Text="Settings Page"
+                           FontSize="16" />
+                <Button Text="Close" Clicked="OnClose"></Button>
+                <Button Text="Double Tap Close">
+                    <Button.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureClose" NumberOfTapsRequired="2"/>
+                    </Button.GestureRecognizers>
+                </Button>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentView>

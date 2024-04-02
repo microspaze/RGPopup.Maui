@@ -1,4 +1,5 @@
 ﻿using RGPopup.Maui.Services;
+using RGPopup.Samples.Helpers;
 using RGPopup.Samples.Pages;
 using System.Diagnostics;
 
@@ -7,6 +8,7 @@ namespace RGPopup.Samples
     public partial class MainPage : ContentPage
     {
         private LoginPopupPage _loginPopup;
+        private SettingsContentView _settingContent;
 
         public MainPage()
         {
@@ -65,6 +67,13 @@ namespace RGPopup.Samples
             var page = new SettingsPage();
 
             await PopupNavigation.Instance.PushAsync(page);
+        }
+
+        private async void OnOpenSettingsContent(object sender, EventArgs e)
+        {
+            _settingContent ??= new SettingsContentView();
+
+            await PopupHelper.ShowPopup(_settingContent);
         }
 
         private async void OnOpenMvvmPage(object sender, EventArgs e)
