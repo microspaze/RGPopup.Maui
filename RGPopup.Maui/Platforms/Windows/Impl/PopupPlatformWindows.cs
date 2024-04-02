@@ -65,6 +65,7 @@ namespace RGPopup.Maui.Windows.Impl
             {
                 popup.IsOpen = false;
                 page.Parent = null;
+                page.Handler?.DisconnectHandler();
             }
 
             await Task.Delay(5);

@@ -35,7 +35,7 @@ namespace RGPopup.Maui.Droid.Impl
         public Task AddAsync(PopupPage page)
         {
             HandleAccessibilityWorkaround(page, ImportantForAccessibility.NoHideDescendants);
-            
+
             page.Parent = XApplication.Current?.MainPage;
             var pageHandler = page.GetOrCreateHandler<PopupPageHandlerDroid>();
             DecorView?.AddView(pageHandler.PlatformView);
@@ -56,7 +56,8 @@ namespace RGPopup.Maui.Droid.Impl
                 page.Parent = null;
                 //If manual dispose the view's renderer, but the view is not disposed at the same time, it will crash when repush the view.
                 //renderer.Dispose();
-                
+                page.Handler?.DisconnectHandler();
+
                 if (DecorView != null)
                     return PostAsync(DecorView);
             }

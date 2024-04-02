@@ -89,6 +89,7 @@ namespace RGPopup.Maui.MacOS.Impl
             {
                 var window = viewController.View?.Window;
                 page.Parent = null;
+                page.Handler?.DisconnectHandler();
                 if (window != null)
                 {
                     var rvc = window.RootViewController;
