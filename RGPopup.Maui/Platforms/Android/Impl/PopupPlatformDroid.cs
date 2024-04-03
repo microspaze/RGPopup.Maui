@@ -37,6 +37,7 @@ namespace RGPopup.Maui.Droid.Impl
             HandleAccessibilityWorkaround(page, ImportantForAccessibility.NoHideDescendants);
 
             page.Parent = XApplication.Current?.MainPage;
+            page.Unloaded += OnPopupUnloaded;
             var pageHandler = page.GetOrCreateHandler<PopupPageHandlerDroid>();
             DecorView?.AddView(pageHandler.PlatformView);
             return PostAsync(pageHandler.PlatformView);
@@ -57,6 +58,7 @@ namespace RGPopup.Maui.Droid.Impl
                 //If manual dispose the view's renderer, but the view is not disposed at the same time, it will crash when repush the view.
                 //renderer.Dispose();
                 page.Handler?.DisconnectHandler();
+                page.Unloaded -= OnPopupUnloaded;
 
                 if (DecorView != null)
                     return PostAsync(DecorView);
@@ -91,6 +93,24 @@ namespace RGPopup.Maui.Droid.Impl
             }
 
             return animationScale > 0;
+        }
+
+        #endregion
+
+        #region Handlers
+
+        private void OnPopupUnloaded(object? sender, EventArgs e)
+        {
+            if (sender is PopupPage page)
+            {
+                //Auto disconnect all sub elements' handler.
+                //Fix The specified child already has a parent. You must call removeView() on the child's parent first.
+                var elements = page.GetVisualTreeDescendants().OfType<IElement>().ToList();
+                foreach (var element in elements)
+                {
+                    element.Handler?.DisconnectHandler();
+                }
+            }
         }
 
         #endregion
