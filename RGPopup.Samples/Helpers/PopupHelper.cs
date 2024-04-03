@@ -9,10 +9,21 @@ namespace RGPopup.Samples.Helpers
 {
     public class PopupHelper
     {
-        public static async Task ShowPopup(ContentView content)
+        private static BasePopupPage? _popup = null;
+
+        public static async Task ShowPopup(ContentView content, string title = "", bool staticMode = false)
         {
-            var popup = new BasePopupPage(content);
-            await popup.ShowPopup();
+            if (staticMode)
+            {
+                _popup ??= new BasePopupPage(content, title);
+                _popup.UpdateContent(content, title);
+                await _popup.ShowPopup();
+            }
+            else
+            {
+                var popup = new BasePopupPage(content, title);
+                await popup.ShowPopup();
+            }
         }
     }
 }

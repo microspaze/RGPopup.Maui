@@ -86,12 +86,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="Pages\BasePopupPage.xaml.cs">
+        <DependentUpon>BasePopupPage.xaml</DependentUpon>
+      </Compile>
       <Compile Update="Pages\SettingsContentView.xaml.cs">
         <DependentUpon>SettingsContentView.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
+      <MauiXaml Update="Pages\BasePopupPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Pages\SettingsContentView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

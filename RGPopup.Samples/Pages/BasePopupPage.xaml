@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+              xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:RGPopup.Samples.Pages"
+              x:Class="RGPopup.Samples.Pages.BasePopupPage"
+              CloseWhenBackgroundIsClicked="True">
+    <Border StrokeThickness="1" HorizontalOptions="Center" VerticalOptions="Center" Padding="0">
+        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="titleBorder" HorizontalOptions="FillAndExpand" Margin="0" Padding="0" StrokeThickness="1">
+                <Label x:Name="titleLabel" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" Margin="0,8" />
+            </Border>
+
+            <Border x:Name="borderContent" Grid.Row="1" StrokeThickness="1" Padding="0">
+                <Grid>
+                    <ContentView x:Name="viewContent" Margin="0"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</rg:PopupPage>
