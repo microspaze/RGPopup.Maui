@@ -39,6 +39,17 @@
                             Source="github_octocat.png">
                         </Image>
                         <Entry
+                            x:Name="CountryEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Country"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="ProvinceEntry"
+                            HorizontalOptions="Center"
+                            IsPassword="True"
+                            Placeholder="Province"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
                             x:Name="UsernameEntry"
                             HorizontalOptions="Center"
                             Placeholder="Username"
