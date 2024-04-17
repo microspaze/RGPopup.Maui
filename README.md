@@ -16,7 +16,11 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseMauiRGPopup()
+            .UseMauiRGPopup(config =>
+            {
+                config.BackPressHandler = null;
+                config.FixKeyboardOverlap = true;
+            })
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -52,6 +56,11 @@ You can find all descriptions of
 
 ## Release Notes
 
+## 1.0.8
+
+1.Fix The popup with Entry can not show above of the keyboard. #9 (iOS) (Thanks Reported by https://github.com/john-heaven)
+
+2.Fix When taking a picture on Android, the popUp Context will be overwritten with IntermediateActivity #10 (Thanks Reported by https://github.com/jeroen-corteville)
 
 ## 1.0.7
 
