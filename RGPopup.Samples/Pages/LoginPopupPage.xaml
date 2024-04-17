@@ -12,6 +12,7 @@
             <Style x:Key="EntryStyle" TargetType="Entry">
                 <Setter Property="PlaceholderColor" Value="#9cdaf1" />
                 <Setter Property="TextColor" Value="#7dbbe6" />
+                <Setter Property="WidthRequest" Value="180"></Setter>
             </Style>
         </ResourceDictionary>
     </rg:PopupPage.Resources>
@@ -32,10 +33,10 @@
                         Spacing="3">
                         <Image
                             x:Name="OctocatImage"
-                            Margin="10"
-                            HeightRequest="150"
+                            Margin="20"
+                            HeightRequest="180"
                             HorizontalOptions="Center"
-                            WidthRequest="150"
+                            WidthRequest="180"
                             Source="github_octocat.png">
                         </Image>
                         <Entry
@@ -57,9 +58,20 @@
                         <Entry
                             x:Name="PasswordEntry"
                             HorizontalOptions="Center"
-                            IsPassword="True"
+                            IsPassword="False"
                             Placeholder="Password"
                             Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="RegionEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Region"
+                            Style="{StaticResource EntryStyle}" />
+                        <Editor
+                            x:Name="RemarkEditor"
+                            HorizontalOptions="Center"
+                            Placeholder="Remark"
+                            HeightRequest="60"  WidthRequest="180" BackgroundColor="Azure"
+                            Style="{StaticResource EntryStyle}" ></Editor>
                         <Button
                             x:Name="LoginButton"
                             Margin="10,5"

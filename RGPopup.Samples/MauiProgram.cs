@@ -12,7 +12,11 @@ namespace RGPopup.Samples
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiRGPopup()
+                .UseMauiRGPopup(config =>
+                {
+                    config.BackPressHandler = null;
+                    config.FixKeyboardOverlap = true;
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
