@@ -4,7 +4,7 @@ namespace RGPopup.Maui.Extensions
 {
     internal static class VisualElementExtensions
     {
-        [Obsolete("Use " + nameof(Element) + "." + nameof(Element.LogicalChildren))]
+        [Obsolete("Use " + nameof(Element) + ".GetVisualTreeDescendants()")]
         internal static IEnumerable<Element> RgDescendants(this Element element)
         {
             var queue = new Queue<Element>(16);

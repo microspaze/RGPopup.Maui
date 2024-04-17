@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
-using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.LifecycleEvents;
 using RGPopup.Maui;
 using RGPopup.Maui.Extensions;

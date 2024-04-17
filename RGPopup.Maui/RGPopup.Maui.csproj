@@ -52,4 +52,8 @@
       <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
+    </ItemGroup>
+
 </Project>
