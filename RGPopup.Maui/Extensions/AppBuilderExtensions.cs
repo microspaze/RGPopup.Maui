@@ -1,14 +1,18 @@
 ﻿using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.LifecycleEvents;
+using RGPopup.Maui.Effects;
 using RGPopup.Maui.Pages;
 
 namespace RGPopup.Maui.Extensions;
 
 public static class AppBuilderExtensions
 {
-    public static MauiAppBuilder UseMauiRGPopup(this MauiAppBuilder builder, Action? backPressHandler = null)
+    public static MauiAppBuilder UseMauiRGPopup(this MauiAppBuilder builder, Action<Config>? configUpdate = null)
     {
+        //Update config
+        configUpdate?.Invoke(Config.Instance);
+
         builder
             //.UseMauiCompatibility() //This will cause ContentView in Popup not display on Windows platform.
             .ConfigureLifecycleEvents(lifecycle =>
@@ -16,7 +20,7 @@ public static class AppBuilderExtensions
 #if ANDROID
                 lifecycle.AddAndroid(b =>
                 {
-                    b.OnBackPressed(activity => Droid.Popup.SendBackPressed(backPressHandler));
+                    b.OnBackPressed(activity => Droid.Popup.SendBackPressed(Config.Instance.BackPressHandler));
                     b.OnCreate((activity, state) =>
                     {
                         Droid.Popup.Init(activity);
@@ -38,7 +42,14 @@ public static class AppBuilderExtensions
                     b.OnLaunching((application, args) => Windows.Popup.Init());
                 });
 #endif
-            }).ConfigureMauiHandlers(handlers =>
+            })
+            .ConfigureEffects(effects =>
+            {
+#if IOS
+                effects.Add<KeyboardOverlapFixEffect, KeyboardOverlapFixPlatformEffect>();
+#endif
+            })
+            .ConfigureMauiHandlers(handlers =>
             {
 #if ANDROID
                 handlers.AddHandler(typeof(PopupPage), typeof(Droid.Impl.PopupPageHandlerDroid));

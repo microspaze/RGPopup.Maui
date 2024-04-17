@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using RGPopup.Maui.Contracts;
+using RGPopup.Maui.Effects;
 using RGPopup.Maui.Exceptions;
 using RGPopup.Maui.Extensions;
 using RGPopup.Maui.IOS.Extensions;
@@ -34,7 +35,10 @@ namespace RGPopup.Maui.IOS.Impl
         public Task AddAsync(PopupPage page)
         {
             page.Parent = Application.Current?.MainPage;
-
+            if (Config.Instance.FixKeyboardOverlap && page.Effects.All(x => x.GetType() != typeof(KeyboardOverlapFixEffect)))
+            {
+                page.Effects.Add(new KeyboardOverlapFixEffect());
+            }
             page.DescendantRemoved += HandleChildRemoved;
 
             var keyWindow = UIApplication.SharedApplication.GetKeyWindow();
