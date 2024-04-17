@@ -14,17 +14,24 @@ namespace RGPopup.Maui.Droid
         internal static bool IsInitialized { get; private set; }
 
         internal static Context? Context { get; private set; }
-        
+
         internal static FrameLayout? DecorView => (FrameLayout?)((Android.App.Activity?)Context)?.Window?.DecorView;
 
         public static bool Init(Context context)
         {
-            DependencyService.RegisterSingleton<IPopupPlatform>(new PopupPlatformDroid());
+            if (context is not MauiAppCompatActivity)
+            {
+                return IsInitialized;
+            }
 
             Context = context;
 
-            IsInitialized = true;
-            OnInitialized?.Invoke(null, EventArgs.Empty);
+            if (!IsInitialized)
+            {
+                DependencyService.RegisterSingleton<IPopupPlatform>(new PopupPlatformDroid());
+                IsInitialized = true;
+                OnInitialized?.Invoke(null, EventArgs.Empty);
+            }
 
             return IsInitialized;
         }
