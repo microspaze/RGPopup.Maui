@@ -26,6 +26,7 @@
             <Button Text="Open SettingsContent" Clicked="OnOpenSettingsContent" />
             <Button Text="Open MvvmPage" Clicked="OnOpenMvvmPage" />
             <Button Text="Open TestCurrentViewController" Clicked="OnTestCurrentViewController"/>
+            <Button Text="Open Camera" Clicked="OnOpenCamera"></Button>
         </StackLayout>
     </ScrollView>
 </ContentPage>
