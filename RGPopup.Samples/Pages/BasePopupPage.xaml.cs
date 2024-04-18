@@ -17,14 +17,14 @@ namespace RGPopup.Samples.Pages
             UpdateContent(contentView, title);
         }
 
-        public void UpdateContent(ContentView contentView, string title)
+        private void UpdateContent(ContentView contentView, string title)
         {
             var showTitle = !string.IsNullOrEmpty(title);
+            viewContent.Content = contentView;
             titleBorder.IsVisible = showTitle;
             borderContent.Padding = showTitle ? new Thickness(20) : new Thickness(0);
             borderContent.StrokeThickness = showTitle ? 1.0 : 0.0;
             titleLabel.Text = title;
-            viewContent.Content = contentView;
         }
 
         public async Task ShowPopup()

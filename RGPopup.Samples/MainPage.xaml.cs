@@ -7,7 +7,6 @@ namespace RGPopup.Samples
 {
     public partial class MainPage : ContentPage
     {
-        private bool _singleton = false;
         private LoginPopupPage _loginPopup;
         private SettingsContentView _settingContent;
 
@@ -73,8 +72,7 @@ namespace RGPopup.Samples
         private async void OnOpenSettingsContent(object sender, EventArgs e)
         {
             _settingContent ??= new SettingsContentView();
-            _singleton = !_singleton;
-            await PopupHelper.ShowPopup(_settingContent, "Settings", _singleton);
+            await PopupHelper.ShowPopup(_settingContent, "Settings");
         }
 
         private async void OnOpenMvvmPage(object sender, EventArgs e)

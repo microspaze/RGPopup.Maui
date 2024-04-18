@@ -5,6 +5,7 @@
               xmlns:local="clr-namespace:RGPopup.Samples.Pages"
               x:Class="RGPopup.Samples.Pages.BasePopupPage"
               CloseWhenBackgroundIsClicked="True">
+    <ContentView>
     <Border StrokeThickness="1" HorizontalOptions="Center" VerticalOptions="Center" Padding="0">
         <Grid HorizontalOptions="Center" VerticalOptions="Center">
             <Grid.RowDefinitions>
@@ -22,4 +23,5 @@
             </Border>
         </Grid>
     </Border>
+    </ContentView>
 </rg:PopupPage>
