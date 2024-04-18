@@ -9,7 +9,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>RGPopup.Samples</ApplicationTitle>
+		<ApplicationTitle>RGPopup</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.i7chi.rgpopup.samples</ApplicationId>
