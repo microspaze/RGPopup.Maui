@@ -1,4 +1,5 @@
-﻿using RGPopup.Maui.Services;
+﻿using RGPopup.Maui.Pages;
+using RGPopup.Maui.Services;
 using RGPopup.Samples.Helpers;
 using RGPopup.Samples.Pages;
 using System.Diagnostics;
@@ -20,6 +21,17 @@ namespace RGPopup.Samples
             PopupNavigation.Instance.Popped += (sender, e) => Debug.WriteLine($"[Popup] Popped: {e.Page.GetType().Name}");
 
             _loginPopup = new LoginPopupPage();
+            _loginPopup.Loaded += (sender, args) =>
+            {
+                #if ANDROID
+                //Hide bottom navigation bar when page poped-up 
+                if (sender is PopupPage { Handler.PlatformView: Android.Views.View { Parent: Android.Widget.FrameLayout decorView } })
+                {
+                    var uiFlags = Android.Views.SystemUiFlags.HideNavigation;
+                    decorView.SystemUiVisibility = (Android.Views.StatusBarVisibility) uiFlags;
+                }
+                #endif
+            };
         }
 
         private async void OnOpenPopup(object sender, EventArgs e)
