@@ -54,6 +54,17 @@ You can find all descriptions of
 [Troubleshooting](https://github.com/rotorgames/Rg.Plugins.Popup/wiki/Troubleshooting) and etc in the 
 [Wiki](https://github.com/rotorgames/Rg.Plugins.Popup/wiki)
 
+
+## License
+The MIT License (MIT) see [License file](LICENSE)
+
+
+## Thanks
+Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
+
+![avatar](RGPopup.Samples/Resources/Images/jetbrains_logo.png)
+
+
 ## Release Notes
 
 ## 1.0.8
@@ -77,8 +88,3 @@ You can find all descriptions of
 ## 1.0.3
 
 1.Add .NET 8 support.
-
-
-## License
-The MIT License (MIT) see [License file](LICENSE)
-
