@@ -27,7 +27,7 @@ namespace RGPopup.Samples
                 //Hide bottom navigation bar when page poped-up 
                 if (sender is PopupPage { Handler.PlatformView: Android.Views.View { Parent: Android.Widget.FrameLayout decorView } })
                 {
-                    var uiFlags = Android.Views.SystemUiFlags.HideNavigation;
+                    var uiFlags = Android.Views.SystemUiFlags.LayoutStable | Android.Views.SystemUiFlags.HideNavigation;
                     decorView.SystemUiVisibility = (Android.Views.StatusBarVisibility) uiFlags;
                 }
                 #endif
