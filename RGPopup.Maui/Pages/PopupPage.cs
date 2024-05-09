@@ -25,6 +25,14 @@ namespace RGPopup.Maui.Pages
 
         #region Bindable Properties
 
+        public static readonly BindableProperty IsPopupWindowResizableProperty = BindableProperty.Create(nameof(IsPopupWindowResizable), typeof(bool), typeof(PopupPage), false);
+
+        public bool IsPopupWindowResizable
+        {
+            get => (bool)GetValue(IsPopupWindowResizableProperty);
+            set => SetValue(IsPopupWindowResizableProperty, value);
+        }
+        
         public static readonly BindableProperty IsAnimationEnabledProperty = BindableProperty.Create(nameof(IsAnimationEnabled), typeof(bool), typeof(PopupPage), true);
 
         public bool IsAnimationEnabled

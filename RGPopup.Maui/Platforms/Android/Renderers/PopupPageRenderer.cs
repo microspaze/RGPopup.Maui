@@ -8,6 +8,7 @@ using Microsoft.Maui.Platform;
 using RGPopup.Maui.Droid.Gestures;
 using RGPopup.Maui.Pages;
 using View = Android.Views.View;
+using XApplication = Microsoft.Maui.Controls.Application;
 
 namespace RGPopup.Maui.Droid.Renderers
 {
@@ -24,14 +25,18 @@ namespace RGPopup.Maui.Droid.Renderers
         private static double _contentY = 0D;
         private static readonly bool _isVersionM = Build.VERSION.SdkInt >= BuildVersionCodes.M;
         private static readonly bool _isVersionQ = Build.VERSION.SdkInt >= BuildVersionCodes.Q;
-        
-        private readonly RgGestureDetectorListener _gestureDetectorListener;
+
         private readonly GestureDetector _gestureDetector;
+        private readonly RgGestureDetectorListener _gestureDetectorListener;
+        private RgGlobalLayoutListener? _globalLayoutListener;
         private DateTime _downTime;
         private Point _downPosition;
         private bool _disposed;
+        private int _pageHeight = 0;
+        private int _pageHeightDiff = 0;
         private WindowInsets? _windowInsets => _isVersionM ? RootWindowInsets : null;
 
+        public View? MainPageView { get; }
         public PopupPage? CurrentElement { get; }
         public Microsoft.Maui.Controls.View? PopupContent { get; }
 
@@ -41,6 +46,7 @@ namespace RGPopup.Maui.Droid.Renderers
         {
             CurrentElement = view as PopupPage;
             PopupContent = ((ContentView?)CurrentElement?.Content)?.Content;
+            MainPageView = XApplication.Current?.MainPage?.Handler?.PlatformView as View;
             
             _gestureDetectorListener = new RgGestureDetectorListener();
             _gestureDetectorListener.Clicked += OnBackgroundClick;
@@ -52,7 +58,7 @@ namespace RGPopup.Maui.Droid.Renderers
             if (disposing)
             {
                 _disposed = true;
-
+                
                 _gestureDetectorListener.Clicked -= OnBackgroundClick;
                 _gestureDetectorListener.Dispose();
                 _gestureDetector.Dispose();
@@ -67,19 +73,18 @@ namespace RGPopup.Maui.Droid.Renderers
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
-            var activity = (Activity?)Context;
             var element = CurrentElement;
-
-            if (element == null)
-                return;
-
+            if (element == null) { return; }
+            if (b >= _pageHeight && _pageHeightDiff > 0)
+            {
+                b -= _pageHeightDiff;
+            }
+            
             Thickness systemPadding;
             var keyboardOffset = 0d;
-
+            var activity = (Activity?)Context;
             var decoreView = activity?.Window?.DecorView;
-
             var visibleRect = new Android.Graphics.Rect();
-
             decoreView?.GetWindowVisibleDisplayFrame(visibleRect);
 
             if (_isVersionM && _windowInsets != null)
@@ -170,12 +175,36 @@ namespace RGPopup.Maui.Droid.Renderers
 
         protected override void OnAttachedToWindow()
         {
+            if (CurrentElement is { IsPopupWindowResizable: true } && MainPageView != null)
+            {
+                _pageHeight = MainPageView.Height;
+                _globalLayoutListener ??= new RgGlobalLayoutListener();
+                _globalLayoutListener.LayoutReady += (sender, args) =>
+                {
+                    var rect = new Android.Graphics.Rect();
+                    this.GetWindowVisibleDisplayFrame(rect);
+                    if (rect.Height() <= 0) return;
+                    var heightDiff = _pageHeight - rect.Height();
+                    if (heightDiff > 0 && heightDiff != _pageHeightDiff)
+                    {
+                        _pageHeightDiff = heightDiff;
+                        RequestLayout();
+                    }
+                };
+                this.ViewTreeObserver?.AddOnGlobalLayoutListener(_globalLayoutListener);
+            }
+
             Context?.HideKeyboard(DecorView);
             base.OnAttachedToWindow();
         }
 
         protected override void OnDetachedFromWindow()
         {
+            if (_globalLayoutListener != null)
+            {
+                this.ViewTreeObserver?.RemoveOnGlobalLayoutListener(_globalLayoutListener);
+            }
+            
             CurrentElement?.Dispatcher.StartTimer(TimeSpan.FromMilliseconds(0), () =>
             {
                 Context?.HideKeyboard(DecorView);
@@ -325,5 +354,14 @@ namespace RGPopup.Maui.Droid.Renderers
         }
 
         #endregion
+        
+        internal class RgGlobalLayoutListener : Java.Lang.Object, ViewTreeObserver.IOnGlobalLayoutListener
+        {
+            public EventHandler<EventArgs> LayoutReady;
+            public void OnGlobalLayout()
+            {
+                LayoutReady?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }
