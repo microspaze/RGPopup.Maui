@@ -13,8 +13,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView VerticalOptions="Fill">
-        <StackLayout Spacing="20" Margin="10, 15">
-            <Button Text="Open Popup" Clicked="OnOpenPopup" />
+        <StackLayout Spacing="20" Margin="10, 15" VerticalOptions="Start">
+            <Button Text="Open Login Popup" Clicked="OnOpenPopup" />
             <Button Text="Open User Animation Popup" Clicked="OnUserAnimationPupup" />
             <Button Text="Open System Offset Page" Clicked="OnOpenSystemOffsetPage" />
             <Button Text="ListView Page" Clicked="OnOpenListViewPage" />
@@ -27,6 +27,7 @@
             <Button Text="Open MvvmPage" Clicked="OnOpenMvvmPage" />
             <Button Text="Open TestCurrentViewController" Clicked="OnTestCurrentViewController"/>
             <Button Text="Open Camera" Clicked="OnOpenCamera"></Button>
+            <Button Text="Open Comment Popup" Clicked="OnOpenComment"></Button>
         </StackLayout>
     </ScrollView>
 </ContentPage>

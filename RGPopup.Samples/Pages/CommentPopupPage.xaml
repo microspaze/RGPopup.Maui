@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+              x:Class="RGPopup.Samples.Pages.CommentPopupPage">
+    <Grid RowDefinitions="20,Auto,*,Auto,Auto,Auto" VerticalOptions="Fill">
+        <Editor Grid.Row="1" HeightRequest="120" Placeholder="Add Comment" BackgroundColor="White"/>
+        <Editor Grid.Row="2" BackgroundColor="Transparent" Placeholder="Add Description" VerticalOptions="FillAndExpand" InputTransparent="False" />
+        <Entry Grid.Row="3" IsPassword="True" BackgroundColor="Azure" Placeholder="Password"/>
+        <Entry Grid.Row="4" IsPassword="False" BackgroundColor="Azure" Placeholder="Username" />
+        <StackLayout Grid.Row="5" Orientation="Horizontal" BackgroundColor="White" VerticalOptions="End">
+            <Label Text="Resolution" TextColor="Black" VerticalOptions="Center"></Label>
+            <Switch IsToggled="True"></Switch>
+            <Button Text="Cancel" HorizontalOptions="EndAndExpand" Clicked="OnCancelClicked"></Button>
+            <Button Text="Send" HorizontalOptions="End"></Button>
+        </StackLayout>
+    </Grid>
+</rg:PopupPage>

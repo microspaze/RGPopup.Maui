@@ -119,5 +119,12 @@ namespace RGPopup.Samples
                 }
             }
         }
+
+        private async void OnOpenComment(object sender, EventArgs e)
+        {
+            var page = new CommentPopupPage(){ IsPopupWindowResizable = true };
+
+            await PopupNavigation.Instance.PushAsync(page);
+        }
     }
 }

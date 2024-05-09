@@ -89,6 +89,9 @@
       <Compile Update="Pages\BasePopupPage.xaml.cs">
         <DependentUpon>BasePopupPage.xaml</DependentUpon>
       </Compile>
+      <Compile Update="Pages\CommentPopupPage.xaml.cs">
+        <DependentUpon>CommentPopupPage.xaml</DependentUpon>
+      </Compile>
       <Compile Update="Pages\SettingsContentView.xaml.cs">
         <DependentUpon>SettingsContentView.xaml</DependentUpon>
       </Compile>
@@ -96,6 +99,9 @@
 
     <ItemGroup>
       <MauiXaml Update="Pages\BasePopupPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="Pages\CommentPopupPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="Pages\SettingsContentView.xaml">
