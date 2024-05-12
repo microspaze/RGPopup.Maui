@@ -1,13 +1,13 @@
 using Foundation;
 using Microsoft.Maui.Controls.Platform;
 using CoreGraphics;
+using RGPopup.Maui.Pages;
 using UIKit;
 
 namespace RGPopup.Maui.Effects;
 public class KeyboardOverlapFixPlatformEffect : PlatformEffect
 {
     private const double KeyboardOverlapAdjust = 0;
-    private static readonly bool IsIOS15 = DeviceInfo.Version.Major >= 15;
     
     private UIView? _responderView;
     private NSObject? _keyboardShowObserver;
@@ -21,7 +21,9 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
     private bool _pageShiftedUp;
     private bool _pageLoaded = false;
     
-    private ContentPage? CurrentPage => Element as ContentPage;
+    private PopupPage? CurrentPage => Element as PopupPage;
+    private ScrollView? ContentScrollView => CurrentPage?.Content as ScrollView;
+    private ContentView? ContentView => ContentScrollView?.Content as ContentView;
     
     protected override void OnAttached()
     {
@@ -81,19 +83,14 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
     
     private void OnKeyboardShown(NSNotification notification)
     {
-        if (!_pageLoaded || _responderView == null || _keyboardShown) return;
+        if (!_pageLoaded || _keyboardShown) return;
 
         _keyboardShown = true;
-        var keyboardHeight = IsIOS15 ? _responderView.KeyboardLayoutGuide.LayoutFrame.Height : 0;
-        if (keyboardHeight <= 0)
-        {
-            var keyboardFrame = UIKeyboard.FrameEndFromNotification(notification);
-            keyboardHeight = keyboardFrame.Height;
-        }
-        
+        var keyboardFrame = UIKeyboard.FrameEndFromNotification(notification);
+        var keyboardHeight = keyboardFrame.Height;
         //Console.WriteLine($"KeyboardDidShowHeight: {keyboardHeight}");
-        if (keyboardHeight <= _keyboardHeight) return;
-        this.CheckOverlap(keyboardHeight);
+        if (keyboardHeight < _keyboardHeight) return;
+        this.CheckOverlap(keyboardHeight, force: true);
     }
 
     private void OnKeyboardHide(NSNotification notification)
@@ -109,9 +106,9 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
         }
     }
 
-    private void CheckOverlap(nfloat keyboardHeight)
+    private void CheckOverlap(nfloat keyboardHeight, bool force = false)
     {
-        if (_pageShiftedUp) { return; }
+        if (_pageShiftedUp && !force) { return; }
         var deltaHeight = keyboardHeight - _keyboardHeight;
         if (_keyboardOverlap > 0 && deltaHeight > KeyboardOverlapAdjust)
         {
@@ -125,7 +122,6 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
         _responderView ??= FindFirstResponder(Control);
         if (_responderView == null) return;
         _keyboardOverlap = GetOverlapDistance(_responderView, Control, _keyboardHeight, false);
-        //Console.WriteLine($"KeyboardOverlap: {_keyboardOverlap}");
         if (_keyboardOverlap > 0)
         {
             ShiftPageUp();
@@ -134,23 +130,24 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
 
     private void ShiftPageUp()
     {
-        if (CurrentPage == null || Control == null) return;
+        if (CurrentPage == null || ContentView == null || Control == null) return;
+        //Console.WriteLine($"KeyboardOverlap: {_keyboardOverlap}");
         var deltaBottom = _keyboardOverlap + KeyboardOverlapAdjust;
-        _originalPadding ??= CurrentPage.Padding;
-        _currentPadding = new Thickness(_originalPadding.Value.Left, _originalPadding.Value.Top, _originalPadding.Value.Right, _originalPadding.Value.Bottom + deltaBottom);
+        _originalPadding ??= ContentView.Padding;
+        _currentPadding = new Thickness(_originalPadding.Value.Left, _originalPadding.Value.Top, _originalPadding.Value.Right, _originalPadding.Value.Bottom+deltaBottom);
         CurrentPage.Dispatcher.Dispatch(() =>
         {
-            CurrentPage.Padding = _currentPadding;
+            ContentView.Padding = _currentPadding;
         });
         _pageShiftedUp = true;
     }
 
     private void ShiftPageDown()
     {
-        if (CurrentPage == null || _originalPadding == null) return;
+        if (CurrentPage == null || ContentView == null || _originalPadding == null) return;
         CurrentPage.Dispatcher.Dispatch(() =>
         {
-            CurrentPage.Padding = _originalPadding.Value;
+            ContentView.Padding = _originalPadding.Value;
         });
         _pageShiftedUp = false;
     }

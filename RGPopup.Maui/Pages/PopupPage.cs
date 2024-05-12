@@ -7,6 +7,7 @@ using RGPopup.Maui.Services;
 
 namespace RGPopup.Maui.Pages
 {
+    [ContentProperty("CoreContent")]
     public class PopupPage : ContentPage
     {
         #region Internal Properties
@@ -24,7 +25,7 @@ namespace RGPopup.Maui.Pages
         #endregion
 
         #region Bindable Properties
-
+        
         public static readonly BindableProperty IsPopupWindowResizableProperty = BindableProperty.Create(nameof(IsPopupWindowResizable), typeof(bool), typeof(PopupPage), false);
 
         public bool IsPopupWindowResizable
@@ -137,6 +138,25 @@ namespace RGPopup.Maui.Pages
             set => SetValue(AndroidTalkbackAccessibilityWorkaroundProperty, value);
         }
 
+        public static readonly BindableProperty CoreContentProperty = BindableProperty.Create(nameof(CoreContent), typeof(View), typeof(ContentPage), null, propertyChanged: OnContentChanged);
+        
+        public View CoreContent
+        {
+            get => (View)GetValue(CoreContentProperty);
+            set => SetValue(CoreContentProperty, value);
+        }
+        
+        public static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is not PopupPage popupPage) return;
+            var coreContent = newValue as View;
+            if (coreContent is not ContentView)
+            {
+                coreContent = new ContentView() { Content = coreContent, InputTransparent = false };
+            }
+            popupPage.Content = new ScrollView(){ Content = coreContent, InputTransparent = false };
+        }
+        
         #endregion
 
         #region Main Methods
@@ -146,19 +166,12 @@ namespace RGPopup.Maui.Pages
             BackgroundColor = Color.FromArgb("#80000000");
             InputTransparent = false;
         }
-
-        /// <summary>
-        /// Fix if ContentPage's content is not ContentView or Grid, then the children will not display.
-        /// </summary>
+        
         protected override void OnParentSet()
         {
             if (this.Parent != null)
             {
                 this.SendAppearing();
-                if (this.Content is not ContentView)
-                {
-                    this.Content = new ContentView() { Content = this.Content, InputTransparent = false };
-                }
             }
             else
             {
