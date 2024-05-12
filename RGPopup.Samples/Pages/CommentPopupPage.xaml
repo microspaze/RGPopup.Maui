@@ -2,8 +2,9 @@
 <rg:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+              CloseWhenBackgroundIsClicked="False"
               x:Class="RGPopup.Samples.Pages.CommentPopupPage">
-    <Grid RowDefinitions="20,Auto,*,Auto,Auto,Auto" VerticalOptions="Fill">
+    <Grid RowDefinitions="20,Auto,*,Auto,Auto,Auto" >
         <Editor Grid.Row="1" HeightRequest="120" Placeholder="Add Comment" BackgroundColor="DarkTurquoise"/>
         <Editor Grid.Row="2" BackgroundColor="Transparent" Placeholder="Add Description" VerticalOptions="FillAndExpand" InputTransparent="False" />
         <Entry Grid.Row="3" IsPassword="True" BackgroundColor="Azure" Placeholder="Password"/>
