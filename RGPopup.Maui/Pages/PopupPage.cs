@@ -12,6 +12,8 @@ namespace RGPopup.Maui.Pages
     {
         #region Internal Properties
 
+        private static readonly bool _isIOS = DeviceInfo.Current.Platform == DevicePlatform.iOS;
+        
         internal Task? AppearingTransactionTask { get; set; }
 
         internal Task? DisappearingTransactionTask { get; set; }
@@ -154,7 +156,7 @@ namespace RGPopup.Maui.Pages
             {
                 coreContent = new ContentView() { Content = coreContent, InputTransparent = false };
             }
-            popupPage.Content = new ScrollView(){ Content = coreContent, InputTransparent = false };
+            popupPage.Content = _isIOS ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
         }
         
         #endregion
