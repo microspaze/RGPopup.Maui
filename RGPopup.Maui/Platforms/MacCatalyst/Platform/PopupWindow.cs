@@ -52,7 +52,6 @@ namespace RGPopup.Maui.MacOS.Platform
                 _ = formsElement.SendBackgroundClick();
                 if (formsElement.BackgroundInputTransparent)
                 {
-                    //Background element can not be clicked in MacCatalyst (NOT WORK)
                     return null!;
                 }
             }
