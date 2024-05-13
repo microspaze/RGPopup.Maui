@@ -4,7 +4,7 @@
               xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
               CloseWhenBackgroundIsClicked="False"
               x:Class="RGPopup.Samples.Pages.CommentPopupPage">
-    <Grid RowDefinitions="20,Auto,*,Auto,Auto,Auto" >
+    <Grid RowDefinitions="0,Auto,*,Auto,Auto,Auto">
         <Editor Grid.Row="1" HeightRequest="120" Placeholder="Add Comment" BackgroundColor="DarkTurquoise"/>
         <Editor Grid.Row="2" BackgroundColor="Transparent" Placeholder="Add Description" VerticalOptions="FillAndExpand" InputTransparent="False" />
         <Entry Grid.Row="3" IsPassword="True" BackgroundColor="Azure" Placeholder="Password"/>

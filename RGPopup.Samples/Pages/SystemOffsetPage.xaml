@@ -4,12 +4,13 @@
               xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
               x:Class="RGPopup.Samples.Pages.SystemOffsetPage">
   <ContentView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5,5,5,5" BackgroundColor="Red">
-    <ContentView BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-      <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+    <Grid IgnoreSafeArea="False" RowDefinitions="*,50" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
         <Label x:Name="InfoLabel" TextColor="DarkGray"/>
         <Button Text="Close Popup" TextColor="Red" Clicked="OnClose"/>
         <Entry Placeholder="Keyboard Test Entry" PlaceholderColor="DarkGray"/>
       </StackLayout>
-    </ContentView>
+      <Entry Grid.Row="1" Placeholder="Keyboard Test Entry End" PlaceholderColor="DarkGray" VerticalOptions="End"/>
+    </Grid>
   </ContentView>
 </rg:PopupPage>
