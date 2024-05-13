@@ -67,6 +67,16 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.0.9
+
+1. Refine fix The popup with Entry can not show above of the keyboard. #9 (iOS)
+
+2. Fix background unclickable problem for MacCatalyst.
+
+3. Fix Inputsoft resize android not work on PopupPage #7 (Add new bindable property IsPopupWindowResizable to support PopupPage's layout resizing when SoftInput Keyboard popped-up) (Thanks Reported by https://github.com/guilhermeheibel)
+
+4. Try to fix Popup renders behind the Android navigationbar #11 (Thanks Reported by https://github.com/jaison-t-john)
+
 ## 1.0.8
 
 1.Fix The popup with Entry can not show above of the keyboard. #9 (iOS) (Thanks Reported by https://github.com/john-heaven)
