@@ -4,7 +4,7 @@
               xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
               xmlns:animations="clr-namespace:RGPopup.Samples.Animations;assembly=RGPopup.Samples"
               CloseWhenBackgroundIsClicked="True"
-              BackgroundInputTransparent="True"
+              BackgroundInputTransparent="False"
               x:Class="RGPopup.Samples.Pages.TestCurrentViewController">
   <ContentView>
       <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
