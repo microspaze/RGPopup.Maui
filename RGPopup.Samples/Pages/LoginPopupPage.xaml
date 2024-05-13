@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
     xmlns:animation="clr-namespace:RGPopup.Maui.Animations;assembly=RGPopup.Maui"
+    BackgroundInputTransparent="False"
     CloseWhenBackgroundIsClicked="False"
     AndroidTalkbackAccessibilityWorkaround="True">
     <rg:PopupPage.Resources>
@@ -22,7 +23,8 @@
             PositionOut="Bottom"
             />
     </rg:PopupPage.Animation>
-            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
+    <ContentView>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Frame
                     x:Name="FrameContainer"
                     Margin="15"
@@ -96,4 +98,5 @@
                     </Image>
                 </ContentView>
             </AbsoluteLayout>
+    </ContentView>
 </rg:PopupPage>

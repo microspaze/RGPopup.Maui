@@ -128,7 +128,7 @@ namespace RGPopup.Samples.Pages
 
         protected override bool OnBackgroundClicked()
         {
-            CloseAllPopup();
+            Console.WriteLine($"LoginPopupPage Background Clicked!");
 
             return false;
         }
