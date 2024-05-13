@@ -9,11 +9,14 @@ namespace RGPopup.Samples.Helpers
 {
     public class PopupHelper
     {
+        private static BasePopupPage _commonPopup;
+
         [Obsolete("THIS HELPER METHOD IS ONLY FOR DEMO PURPOSE, MAY HAVE COMPATIBILITY ISSUE")]
         public static async Task ShowPopup(ContentView content, string title = "")
         {
-            var popup = new BasePopupPage(content, title);
-            await popup.ShowPopup();
+            _commonPopup ??= new BasePopupPage();
+            _commonPopup.UpdateContent(content, title);
+            await _commonPopup.ShowPopup();
         }
     }
 }

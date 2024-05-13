@@ -17,7 +17,7 @@ namespace RGPopup.Samples.Pages
             UpdateContent(contentView, title);
         }
 
-        private void UpdateContent(ContentView contentView, string title)
+        public void UpdateContent(ContentView contentView, string title)
         {
             var showTitle = !string.IsNullOrEmpty(title);
             viewContent.Content = contentView;
