@@ -32,12 +32,16 @@ namespace RGPopup.Maui.Droid.Renderers
         private DateTime _downTime;
         private Point _downPosition;
         private bool _disposed;
+        private int _pageTop = 0;
+        private int _pageBottom = 0;
         private int _pageHeight = 0;
         private int _pageHeightDiff = 0;
+        private double _contentPaddingTop = 0D;
         private WindowInsets? _windowInsets => _isVersionM ? RootWindowInsets : null;
 
         public View? MainPageView { get; }
         public PopupPage? CurrentElement { get; }
+        public ContentView? PopupWrapper { get; }
         public Microsoft.Maui.Controls.View? PopupContent { get; }
 
         #region Main Methods
@@ -45,7 +49,8 @@ namespace RGPopup.Maui.Droid.Renderers
         public PopupPageRenderer(Context context, IContentView view) : base(context)
         {
             CurrentElement = view as PopupPage;
-            PopupContent = ((ContentView?)CurrentElement?.Content)?.Content;
+            PopupWrapper = (ContentView?)((ContentPage?)CurrentElement)?.Content;
+            PopupContent = PopupWrapper?.Content;
             MainPageView = XApplication.Current?.MainPage?.Handler?.PlatformView as View;
             
             _gestureDetectorListener = new RgGestureDetectorListener();
@@ -74,10 +79,21 @@ namespace RGPopup.Maui.Droid.Renderers
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
             var element = CurrentElement;
-            if (element == null) { return; }
+            if (element == null || PopupWrapper == null) { return; }
+            
             if (b >= _pageHeight && _pageHeightDiff > 0)
             {
                 b -= _pageHeightDiff;
+            }
+            if (_pageBottom > 0)
+            {
+                b -= _pageBottom;
+            }
+            if (_pageTop > 0)
+            {
+                var padding = PopupWrapper.Padding;
+                padding.Top = _contentPaddingTop + Context.FromPixels(_pageTop);
+                PopupWrapper.Padding = padding;
             }
             
             Thickness systemPadding;
@@ -175,17 +191,25 @@ namespace RGPopup.Maui.Droid.Renderers
 
         protected override void OnAttachedToWindow()
         {
-            if (CurrentElement is { IsPopupWindowResizable: true } && MainPageView != null)
+            if (DecorView == null || CurrentElement == null || PopupWrapper == null || MainPageView == null) { return; }
+            var pageRect = new Android.Graphics.Rect();
+            MainPageView.GetWindowVisibleDisplayFrame(pageRect);
+            _pageTop = pageRect.Top;
+            _pageHeight = MainPageView.Height;
+            _pageBottom = DecorView.Height - pageRect.Bottom;
+            _contentPaddingTop = PopupWrapper.Padding.Top;
+            
+            if (CurrentElement is { IsPopupWindowResizable: true })
             {
-                _pageHeight = MainPageView.Height;
                 _globalLayoutListener ??= new RgGlobalLayoutListener();
                 _globalLayoutListener.LayoutReady += (sender, args) =>
                 {
                     var rect = new Android.Graphics.Rect();
                     this.GetWindowVisibleDisplayFrame(rect);
-                    if (rect.Height() <= 0) return;
-                    var heightDiff = _pageHeight - rect.Height();
-                    if (heightDiff > 0 && heightDiff != _pageHeightDiff)
+                    var visibleHeight = rect.Height();
+                    if (visibleHeight <= 0) return;
+                    var heightDiff = _pageHeight - visibleHeight;
+                    if (heightDiff >= 0 && heightDiff != _pageHeightDiff)
                     {
                         _pageHeightDiff = heightDiff;
                         RequestLayout();
@@ -200,6 +224,12 @@ namespace RGPopup.Maui.Droid.Renderers
 
         protected override void OnDetachedFromWindow()
         {
+            if (DecorView == null || PopupWrapper == null) { return; }
+
+            var padding = PopupWrapper.Padding;
+            padding.Top = _contentPaddingTop;
+            PopupWrapper.Padding = padding;
+            
             if (_globalLayoutListener != null)
             {
                 this.ViewTreeObserver?.RemoveOnGlobalLayoutListener(_globalLayoutListener);
