@@ -7,7 +7,7 @@ using RGPopup.Maui.Services;
 
 namespace RGPopup.Maui.Pages
 {
-    [ContentProperty("CoreContent")]
+    [ContentProperty("Content")]
     public class PopupPage : ContentPage
     {
         #region Internal Properties
@@ -140,17 +140,17 @@ namespace RGPopup.Maui.Pages
             set => SetValue(AndroidTalkbackAccessibilityWorkaroundProperty, value);
         }
 
-        public static readonly BindableProperty CoreContentProperty = BindableProperty.Create(nameof(CoreContent), typeof(View), typeof(ContentPage), null, propertyChanged: OnContentChanged);
+        public new static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(ContentPage), null, propertyChanged: OnContentChanged);
         
-        public View CoreContent
+        public new View Content
         {
-            get => (View)GetValue(CoreContentProperty);
-            set => SetValue(CoreContentProperty, value);
+            get => (View)GetValue(ContentProperty);
+            set => SetValue(ContentProperty, value);
         }
         
         public static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is not PopupPage popupPage) return;
+            if (bindable is not ContentPage popupPage) return;
             var coreContent = newValue as View;
             if (coreContent is not ContentView)
             {
