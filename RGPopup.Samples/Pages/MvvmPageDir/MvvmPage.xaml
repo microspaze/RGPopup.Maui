@@ -11,7 +11,7 @@
                  BackgroundClickedCommandParameter="{x:Reference ClickOnBackgroundLabel}">
     <pages:PopupPage.Content>
         <ContentView>
-            <Frame HasShadow="False" CornerRadius="6"
+            <Frame HasShadow="False" CornerRadius="6" Padding="50"
                    HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Aqua">
                 <StackLayout>
                     <Label x:Name="ClickOnBackgroundLabel"

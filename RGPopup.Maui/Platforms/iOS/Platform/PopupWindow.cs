@@ -44,7 +44,7 @@ namespace RGPopup.Maui.IOS.Platform
             if ((formsElement.BackgroundClickedCommand != null || formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
                 && Math.Max(SafeAreaInsets.Left, safePadding.Left) < point.X && point.X < (Bounds.Width-Math.Max(SafeAreaInsets.Right, safePadding.Right))
                 && Math.Max(SafeAreaInsets.Top, safePadding.Top) < point.Y && point.Y < (Bounds.Height-Math.Max(SafeAreaInsets.Bottom, safePadding.Bottom))
-                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView) || hitTestResult.Equals(contentView?.Subviews?.FirstOrDefault())))
+                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView)))
             {
                 _ = formsElement.SendBackgroundClick();
                 if (formsElement.BackgroundInputTransparent)
