@@ -27,8 +27,7 @@ namespace RGPopup.Maui.MacOS.Platform
         public override UIView HitTest(CGPoint point, UIEvent? uievent)
         {
             var hitTestResult = base.HitTest(point, uievent);
-            var firstTouch = uievent?.AllTouches?.FirstOrDefault() as UITouch;
-            if (firstTouch == null || firstTouch.Phase != UITouchPhase.Ended)
+            if (uievent == null || uievent.Type != UIEventType.Touches)
             {
                 return hitTestResult;
             }
@@ -43,11 +42,12 @@ namespace RGPopup.Maui.MacOS.Platform
                 return null!;
 
             var nativeView = pageHandler?.PlatformView;
+            var contentView = formsElement.Content?.Handler?.PlatformView as UIView;
             var safePadding = formsElement.SafePadding;
             if ((formsElement.BackgroundClickedCommand != null || formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
                 && Math.Max(SafeAreaInsets.Left, safePadding.Left) < point.X && point.X < (Bounds.Width - Math.Max(SafeAreaInsets.Right, safePadding.Right))
                 && Math.Max(SafeAreaInsets.Top, safePadding.Top) < point.Y && point.Y < (Bounds.Height - Math.Max(SafeAreaInsets.Bottom, safePadding.Bottom))
-                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(nativeView?.Subviews?.FirstOrDefault())))
+                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView)))
             {
                 _ = formsElement.SendBackgroundClick();
                 if (formsElement.BackgroundInputTransparent)
