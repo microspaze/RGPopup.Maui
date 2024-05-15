@@ -326,7 +326,7 @@ namespace RGPopup.Maui.Droid.Renderers
                         return true;
                     }
                 }
-                else if (isInSafePadding)
+                else if (isInRegion || isInSafePadding)
                 {
                     //Prevent other view handle the click event.
                     return true;
