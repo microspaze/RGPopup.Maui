@@ -39,12 +39,13 @@ namespace RGPopup.Maui.IOS.Platform
                 return null!;
 
             var nativeView = pageHandler?.PlatformView;
+            var scrollView = formsElement.Content?.Handler?.PlatformView as UIView;
             var contentView = formsElement.CoreContent?.Handler?.PlatformView as UIView;
             var safePadding = formsElement.SafePadding;
             if ((formsElement.BackgroundClickedCommand != null || formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
                 && Math.Max(SafeAreaInsets.Left, safePadding.Left) < point.X && point.X < (Bounds.Width-Math.Max(SafeAreaInsets.Right, safePadding.Right))
                 && Math.Max(SafeAreaInsets.Top, safePadding.Top) < point.Y && point.Y < (Bounds.Height-Math.Max(SafeAreaInsets.Bottom, safePadding.Bottom))
-                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView)))
+                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView) || hitTestResult.Equals(scrollView) || hitTestResult.Equals(scrollView?.Subviews?.FirstOrDefault())))
             {
                 _ = formsElement.SendBackgroundClick();
                 if (formsElement.BackgroundInputTransparent)
