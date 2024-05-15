@@ -49,7 +49,7 @@ namespace RGPopup.Maui.Droid.Renderers
         public PopupPageRenderer(Context context, IContentView view) : base(context)
         {
             CurrentElement = view as PopupPage;
-            PopupWrapper = (ContentView?)((ContentPage?)CurrentElement)?.Content;
+            PopupWrapper = CurrentElement?.Content as ContentView;
             PopupContent = PopupWrapper?.Content;
             MainPageView = XApplication.Current?.MainPage?.Handler?.PlatformView as View;
             

@@ -148,15 +148,20 @@ namespace RGPopup.Maui.Pages
             set => SetValue(ContentProperty, value);
         }
         
+        public View CoreContent { get; private set; }
+        
         public static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is not ContentPage popupPage) return;
+            if (bindable is not PopupPage popupPage || bindable is not ContentPage contentPage || newValue == contentPage.Content) return;
             var coreContent = newValue as View;
             if (coreContent is not ContentView)
             {
                 coreContent = new ContentView() { Content = coreContent, InputTransparent = false };
             }
-            popupPage.Content = _isIOS ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
+            var wrappedContent = _isIOS ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
+            contentPage.Content = wrappedContent;
+            popupPage.CoreContent = coreContent;
+            popupPage.Content = wrappedContent;
         }
         
         #endregion
@@ -207,6 +212,9 @@ namespace RGPopup.Maui.Pages
 
         protected override void LayoutChildren(double x, double y, double width, double height)
         {
+            base.LayoutChildren(x, y, width, height);
+            return;
+            //UNCOMMENT THIS TO FIX POPUP BOUNCE WHEN KEYBOARD HIDING
             if (HasSystemPadding)
             {
                 var systemPadding = SystemPadding;

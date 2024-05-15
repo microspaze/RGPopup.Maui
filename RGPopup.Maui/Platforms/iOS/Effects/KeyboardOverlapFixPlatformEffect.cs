@@ -187,7 +187,8 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
     {
         var safeAreaBottom = useSafeArea ? rootView.Window.SafeAreaInsets.Bottom : 0;
         var pageHeight = rootView.Frame.Height;
-        //Console.WriteLine($"relativeBottom:{relativeBottom}, pageHeight:{pageHeight}, keyboardHeight:{keyboardHeight}");
-        return relativeBottom - (pageHeight + safeAreaBottom - keyboardHeight);
+        var overlapHeight = relativeBottom - (pageHeight + safeAreaBottom - keyboardHeight);
+        //Console.WriteLine($"relative:{relativeBottom}, page:{pageHeight}, keyboard:{keyboardHeight}, safeArea:{safeAreaBottom}, overlap:{overlapHeight}");
+        return overlapHeight;
     }
 }

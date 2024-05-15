@@ -11,7 +11,7 @@
         <Entry Grid.Row="4" IsPassword="False" BackgroundColor="Azure" Placeholder="Username" />
         <StackLayout Grid.Row="5" Orientation="Horizontal" BackgroundColor="White" VerticalOptions="End">
             <Label Text="Resolution" TextColor="Black" VerticalOptions="Center"></Label>
-            <Switch IsToggled="True"></Switch>
+            <Switch IsToggled="True" VerticalOptions="Center"></Switch>
             <Button Text="Cancel" HorizontalOptions="EndAndExpand" Clicked="OnCancelClicked"></Button>
             <Button Text="Send" HorizontalOptions="End"></Button>
         </StackLayout>
