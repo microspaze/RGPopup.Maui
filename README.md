@@ -67,6 +67,16 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.1.0
+
+1. Fix popup bounce when keyboard hiding on iOS platform.
+
+2. Fix Android touch event transparent popup content when CloseWhenBackgroundIsClicked=True and touch position isInRegion=True.
+
+3. Fix Error XA3006 : Could not compile native assembly file: typemaps.x86_64.ll on Window when targeting to x86_64 android emulator.
+
+4. Fix With 1.0.9 popup doesnt dismiss whern click outside popup wndow #14 (Thanks Reported by https://github.com/broda02)
+
 ## 1.0.9
 
 1. Refine fix The popup with Entry can not show above of the keyboard. #9 (iOS)
