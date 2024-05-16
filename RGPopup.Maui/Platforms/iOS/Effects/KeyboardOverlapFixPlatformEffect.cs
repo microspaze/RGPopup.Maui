@@ -22,7 +22,7 @@ public class KeyboardOverlapFixPlatformEffect : PlatformEffect
     private bool _pageLoaded = false;
     
     private PopupPage? CurrentPage => Element as PopupPage;
-    private ScrollView? ContentScrollView => CurrentPage?.Content as ScrollView;
+    private ScrollView? ContentScrollView => CurrentPage?.WrappedContent as ScrollView;
     private ContentView? ContentView => ContentScrollView?.Content as ContentView;
     
     protected override void OnAttached()

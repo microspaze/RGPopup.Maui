@@ -39,7 +39,7 @@ namespace RGPopup.Maui.IOS.Platform
                 return null!;
 
             var nativeView = pageHandler?.PlatformView;
-            var scrollView = formsElement.Content?.Handler?.PlatformView as UIView;
+            var scrollView = formsElement.WrappedContent?.Handler?.PlatformView as UIView;
             var contentView = formsElement.CoreContent?.Handler?.PlatformView as UIView;
             var safePadding = formsElement.SafePadding;
             if ((formsElement.BackgroundClickedCommand != null || formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)

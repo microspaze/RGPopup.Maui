@@ -150,6 +150,8 @@ namespace RGPopup.Maui.Pages
         
         public View CoreContent { get; private set; }
         
+        public View WrappedContent { get; private set; }
+        
         public static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is not PopupPage popupPage || bindable is not ContentPage contentPage || newValue == contentPage.Content) return;
@@ -161,7 +163,7 @@ namespace RGPopup.Maui.Pages
             var wrappedContent = _isIOS ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
             contentPage.Content = wrappedContent;
             popupPage.CoreContent = coreContent;
-            popupPage.Content = wrappedContent;
+            popupPage.WrappedContent = wrappedContent;
         }
         
         #endregion
