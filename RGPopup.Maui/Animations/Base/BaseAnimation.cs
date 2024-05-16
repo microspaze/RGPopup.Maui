@@ -32,12 +32,16 @@ namespace RGPopup.Maui.Animations.Base
 
         protected virtual int GetTopOffset(View content, Page page)
         {
-            return (int)(content.Height + page.Height) / 2;
+            var pageHeight = page.Height;
+            var contentHeight = content.Height;
+            return pageHeight > 0 && contentHeight > 0 ? (int)(contentHeight + pageHeight) / 2 : (int)page.Window.Height;
         }
 
         protected virtual int GetLeftOffset(View content, Page page)
         {
-            return (int)(content.Width + page.Width) / 2;
+            var pageWidth = page.Width;
+            var contentWidth = content.Width;
+            return pageWidth > 0 && contentWidth > 0 ? (int)(contentWidth + pageWidth) / 2 : (int)page.Window.Width;
         }
 
         /// <summary>
