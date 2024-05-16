@@ -67,6 +67,10 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.1.1
+
+1. Fix MoveAnimation animation is not triggered when opening with PopupNavigation.Instance.PushAsync #15 on Android platform. (Thanks Reported by https://github.com/guilhermeheibel)
+
 ## 1.1.0
 
 1. Fix popup bounce when keyboard hiding on iOS platform.
