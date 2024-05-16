@@ -49,7 +49,7 @@ namespace RGPopup.Maui.Droid.Renderers
         public PopupPageRenderer(Context context, IContentView view) : base(context)
         {
             CurrentElement = view as PopupPage;
-            PopupWrapper = CurrentElement?.Content as ContentView;
+            PopupWrapper = CurrentElement?.WrappedContent as ContentView;
             PopupContent = PopupWrapper?.Content;
             MainPageView = XApplication.Current?.MainPage?.Handler?.PlatformView as View;
             
@@ -315,7 +315,7 @@ namespace RGPopup.Maui.Droid.Renderers
                 _contentX = PopupContent.X * _sizeRatio;
                 _contentY = PopupContent.Y * _sizeRatio;
 
-                var isInRegion = IsInRegion(e.RawX, e.RawY);
+                var isInRegion = IsInRegion(e.RawX, e.RawY, _pageTop);
                 var isInSafePadding = !isInRegion && IsInSafePadding(e.RawX, e.RawY);
                 if ((hasCommand && !isInSafePadding) || (ChildCount > 0 && !isInRegion && !isInSafePadding) || ChildCount == 0)
                 {
@@ -346,7 +346,7 @@ namespace RGPopup.Maui.Droid.Renderers
                 return;
 
             //var isInRegion = IsInRegion(e.RawX, e.RawY, GetChildAt(0)!);
-            var isInRegion = IsInRegion(e.RawX, e.RawY);
+            var isInRegion = IsInRegion(e.RawX, e.RawY, _pageTop);
             var isInSafePadding = IsInSafePadding(e.RawX, e.RawY);
             if (!isInRegion && !isInSafePadding)
                 CurrentElement?.SendBackgroundClick();
@@ -364,11 +364,11 @@ namespace RGPopup.Maui.Droid.Renderers
                    mCoordBuffer[1] < y;                // top edge
         }
         
-        private static bool IsInRegion(float x, float y)
+        private static bool IsInRegion(float x, float y, float top = 0)
         {
             var inViewRegion = 
                  _contentX + _contentWidth > x &&    // right edge
-                 _contentY + _contentHeight > y &&   // bottom edge
+                 _contentY + _contentHeight - top > y &&   // bottom edge
                  _contentX < x &&                    // left edge
                  _contentY < y;                      // top edge
             return inViewRegion;
