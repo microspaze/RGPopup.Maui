@@ -68,6 +68,10 @@
 
 	<ItemGroup>
 	  <Compile Remove="Platforms\Android\**" />
+	  <Compile Update="Pages\ScrollViewDisabledPage.xaml.cs">
+	    <DependentUpon>ScrollViewDisabledPage.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,6 +80,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Remove="Platforms\Android\**" />
+	  <MauiXaml Update="Pages\ScrollViewDisabledPage.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>

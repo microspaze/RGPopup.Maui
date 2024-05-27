@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+              x:Class="RGPopup.Samples.Pages.ScrollViewDisabledPage"
+              CloseWhenBackgroundIsClicked="False"  
+              DisableScrollView="True">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="40,60,40,60" RowDefinitions="Auto,*">
+        <ContentView x:Name="ViewTop"  Grid.Row="0">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+            </ContentView.GestureRecognizers>
+            <Image Source="close_circle_button.png"  WidthRequest="20" HeightRequest="20" HorizontalOptions="End" Margin="0,0,0,6" />
+        </ContentView>
+        <Border Grid.Row="1"
+            VerticalOptions="FillAndExpand"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 20"
+            BackgroundColor="Gray">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowDefinitions="Auto,*">
+                <Label x:Name="LblTitolo" Grid.Row="0"                    
+                   FontSize="16"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   Margin="10,0,10,0"/>             
+
+                <ListView x:Name="Lista" Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ContentView BackgroundColor="White" VerticalOptions="FillAndExpand">
+                                    <Label
+                                            FontSize="16"
+                                            HorizontalTextAlignment="Center"
+                                            VerticalOptions="Center"
+                                            Text="{Binding .}"                                        
+                                        />
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>      
+    </Grid>
+</rg:PopupPage>

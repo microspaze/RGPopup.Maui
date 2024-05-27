@@ -28,6 +28,7 @@
             <Button Text="Open TestCurrentViewController" Clicked="OnTestCurrentViewController"/>
             <Button Text="Open Camera" Clicked="OnOpenCamera"></Button>
             <Button Text="Open Comment Popup" Clicked="OnOpenComment"></Button>
+            <Button Text="Open ScrollViewDisabled Popup (iOS)" Clicked="OnOpenScrollViewDisabled"></Button>
         </StackLayout>
     </ScrollView>
 </ContentPage>

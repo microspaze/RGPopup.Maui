@@ -115,5 +115,12 @@ namespace RGPopup.Samples
 
             await PopupNavigation.Instance.PushAsync(page);
         }
+        
+        private async void OnOpenScrollViewDisabled(object sender, EventArgs e)
+        {
+            var page = new ScrollViewDisabledPage();
+
+            await PopupNavigation.Instance.PushAsync(page);
+        }
     }
 }
