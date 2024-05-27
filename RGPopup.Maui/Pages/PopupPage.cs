@@ -148,7 +148,7 @@ namespace RGPopup.Maui.Pages
             set => SetValue(ContentProperty, value);
         }
 
-        public static readonly BindableProperty DisableScrollViewProperty = BindableProperty.Create(nameof(DisableScrollView), typeof(bool), typeof(PopupPage), null);
+        public static readonly BindableProperty DisableScrollViewProperty = BindableProperty.Create(nameof(DisableScrollView), typeof(bool), typeof(PopupPage), false);
 
         public bool DisableScrollView
         {
