@@ -147,7 +147,15 @@ namespace RGPopup.Maui.Pages
             get => (View)GetValue(ContentProperty);
             set => SetValue(ContentProperty, value);
         }
-        
+
+        public static readonly BindableProperty DisableScrollViewProperty = BindableProperty.Create(nameof(DisableScrollView), typeof(bool), typeof(PopupPage), null);
+
+        public bool DisableScrollView
+        {
+            get => (bool)GetValue(DisableScrollViewProperty);
+            set => SetValue(DisableScrollViewProperty, value);
+        }
+
         public View CoreContent { get; private set; }
         
         public View WrappedContent { get; private set; }
@@ -160,7 +168,7 @@ namespace RGPopup.Maui.Pages
             {
                 coreContent = new ContentView() { Content = coreContent, InputTransparent = false };
             }
-            var wrappedContent = _isIOS ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
+            var wrappedContent = _isIOS && !popupPage.DisableScrollView ? new ScrollView(){ Content = coreContent, InputTransparent = false } : coreContent;
             contentPage.Content = wrappedContent;
             popupPage.CoreContent = coreContent;
             popupPage.WrappedContent = wrappedContent;
