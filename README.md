@@ -67,6 +67,10 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.1.2
+
+1. Added property DisableScrollView #17 on iOS platform. (Thanks PR by https://github.com/REDECODE)
+
 ## 1.1.1
 
 1. Fix MoveAnimation animation is not triggered when opening with PopupNavigation.Instance.PushAsync #15 on Android platform. (Thanks Reported by https://github.com/guilhermeheibel)
