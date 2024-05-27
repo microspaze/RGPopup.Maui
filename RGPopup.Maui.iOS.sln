@@ -11,6 +11,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Device = Debug|Device
 		Debug|Simulator = Debug|Simulator
+		Debug|Any CPU = Debug|Any CPU
 		Release|Device = Release|Device
 		Release|Simulator = Release|Simulator
 	EndGlobalSection
@@ -23,6 +24,8 @@ Global
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Device.Build.0 = Release|Device
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.ActiveCfg = Release|Simulator
 		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Release|Simulator.Build.0 = Release|Simulator
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A201F4-3F68-4135-A4BE-F948C079EA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.ActiveCfg = Debug|Device
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Device.Build.0 = Debug|Device
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Simulator.ActiveCfg = Debug|Simulator
@@ -32,6 +35,8 @@ Global
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Device.Deploy.0 = Release|Device
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.ActiveCfg = Release|Simulator
 		{907874F3-8830-4BF4-9AD6-02F296417335}.Release|Simulator.Build.0 = Release|Simulator
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907874F3-8830-4BF4-9AD6-02F296417335}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<AssemblyName>RGPopup.Samples</AssemblyName>
 		<Configurations>Debug;Release</Configurations>
-		<Platforms>Device;Simulator</Platforms>
+		<Platforms>Device;Simulator;AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">
