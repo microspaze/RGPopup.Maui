@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Foundation;
 using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
@@ -38,7 +38,8 @@ namespace RGPopup.Maui.IOS.Platform
             if (formsElement.InputTransparent)
                 return null!;
 
-            UIView? nativeView = null;
+
+           UIView? nativeView = null;
             try
             {
                 nativeView = pageHandler?.PlatformView;
@@ -52,11 +53,13 @@ namespace RGPopup.Maui.IOS.Platform
                 return hitTestResult;
 
 
+            var scrollView = formsElement.WrappedContent?.Handler?.PlatformView as UIView;
+            var contentView = formsElement.CoreContent?.Handler?.PlatformView as UIView;
             var safePadding = formsElement.SafePadding;
             if ((formsElement.BackgroundClickedCommand != null || formsElement.BackgroundInputTransparent || formsElement.CloseWhenBackgroundIsClicked)
-                && Math.Max(SafeAreaInsets.Left, safePadding.Left) < point.X && point.X < (Bounds.Width - Math.Max(SafeAreaInsets.Right, safePadding.Right))
-                && Math.Max(SafeAreaInsets.Top, safePadding.Top) < point.Y && point.Y < (Bounds.Height - Math.Max(SafeAreaInsets.Bottom, safePadding.Bottom))
-                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(nativeView?.Subviews?.FirstOrDefault())))
+                && Math.Max(SafeAreaInsets.Left, safePadding.Left) < point.X && point.X < (Bounds.Width-Math.Max(SafeAreaInsets.Right, safePadding.Right))
+                && Math.Max(SafeAreaInsets.Top, safePadding.Top) < point.Y && point.Y < (Bounds.Height-Math.Max(SafeAreaInsets.Bottom, safePadding.Bottom))
+                && (hitTestResult.Equals(nativeView) || hitTestResult.Equals(contentView) || hitTestResult.Equals(scrollView) || hitTestResult.Equals(scrollView?.Subviews?.FirstOrDefault())))
             {
                 _ = formsElement.SendBackgroundClick();
                 if (formsElement.BackgroundInputTransparent)
