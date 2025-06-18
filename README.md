@@ -67,6 +67,10 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.2.1
+
+1. Added .NET 9 support.
+
 ## 1.1.2
 
 1. Added property DisableScrollView #17 on iOS platform. (Thanks PR by https://github.com/REDECODE)

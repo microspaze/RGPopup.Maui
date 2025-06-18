@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls.Compatibility.Hosting;
-using Microsoft.Maui.Controls.PlatformConfiguration;
+﻿using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.LifecycleEvents;
 using RGPopup.Maui.Effects;
 using RGPopup.Maui.Pages;

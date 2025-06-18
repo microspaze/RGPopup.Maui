@@ -33,7 +33,10 @@ namespace RGPopup.Maui.Droid.Renderers
         private Point _downPosition;
         private bool _disposed;
         private int _pageTop = 0;
+        private int _pageLeft = 0;
+        private int _pageRight = 0;
         private int _pageBottom = 0;
+        private int _pageWidth = 0;
         private int _pageHeight = 0;
         private int _pageHeightDiff = 0;
         private double _contentPaddingTop = 0D;
@@ -80,21 +83,6 @@ namespace RGPopup.Maui.Droid.Renderers
         {
             var element = CurrentElement;
             if (element == null || PopupWrapper == null) { return; }
-            
-            if (b >= _pageHeight && _pageHeightDiff > 0)
-            {
-                b -= _pageHeightDiff;
-            }
-            if (_pageBottom > 0)
-            {
-                b -= _pageBottom;
-            }
-            if (_pageTop > 0)
-            {
-                var padding = PopupWrapper.Padding;
-                padding.Top = _contentPaddingTop + Context.FromPixels(_pageTop);
-                PopupWrapper.Padding = padding;
-            }
             
             Thickness systemPadding;
             var keyboardOffset = 0d;
@@ -195,7 +183,10 @@ namespace RGPopup.Maui.Droid.Renderers
             var pageRect = new Android.Graphics.Rect();
             MainPageView.GetWindowVisibleDisplayFrame(pageRect);
             _pageTop = pageRect.Top;
+            _pageLeft = pageRect.Left;
             _pageHeight = MainPageView.Height;
+            _pageWidth = MainPageView.Width;
+            _pageRight = DecorView.Width - pageRect.Right;
             _pageBottom = DecorView.Height - pageRect.Bottom;
             _contentPaddingTop = PopupWrapper.Padding.Top;
             
