@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using Foundation;
 using RGPopup.Maui.IOS.Renderers;
 using RGPopup.Maui.Pages;
@@ -38,7 +38,21 @@ namespace RGPopup.Maui.IOS.Platform
             if (formsElement.InputTransparent)
                 return null!;
 
-            var nativeView = pageHandler?.PlatformView;
+
+           UIView? nativeView = null;
+            try
+            {
+                nativeView = pageHandler?.PlatformView;
+            }
+            catch (InvalidOperationException)
+            {
+                return hitTestResult;
+            }
+
+            if (nativeView == null)
+                return hitTestResult;
+
+
             var scrollView = formsElement.WrappedContent?.Handler?.PlatformView as UIView;
             var contentView = formsElement.CoreContent?.Handler?.PlatformView as UIView;
             var safePadding = formsElement.SafePadding;
