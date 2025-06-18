@@ -24,6 +24,7 @@
         <PackageProjectUrl>https://github.com/microspaze/RGPopup.Maui</PackageProjectUrl>
         <RepositoryUrl>https://github.com/microspaze/RGPopup.Maui</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <Version>1.2.1</Version>
         <PackageTags>Popup Maui;Rg.Plugins.Popup Maui</PackageTags>
         <PackageReleaseNotes>Fix PopupPage OnAppearing &amp; OnDisappearing not work issue.</PackageReleaseNotes>
