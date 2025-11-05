@@ -67,6 +67,12 @@ Thank JetBrains for providing DEV tools in developing. (Especially on MacOS)
 
 ## Release Notes
 
+## 1.2.2
+
+1. Fix Android If open popup in a modal then popup is shown in background net9 #31.(Thanks Reported by https://github.com/REDECODE)
+
+2. Fix Windows popup new page B from a popuped PopuPage A hide the popuped PopupPage A bug.
+
 ## 1.2.1
 
 1. Added .NET 9 support.

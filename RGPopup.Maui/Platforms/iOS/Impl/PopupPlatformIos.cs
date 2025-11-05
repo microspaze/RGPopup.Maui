@@ -17,9 +17,9 @@ namespace RGPopup.Maui.IOS.Impl
     {
         // It's necessary because GC in Xamarin.iOS 13 removes all UIWindow if there are not any references to them. See #459
         private readonly List<UIWindow> _windows = new List<UIWindow>();
+        private Page? _mainPage => Application.Current?.Windows[0].Page;
 
         private static bool IsiOS9OrNewer => UIDevice.CurrentDevice.CheckSystemVersion(9, 0);
-
         private static bool IsiOS13OrNewer => UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
 
         public event EventHandler OnInitialized
@@ -34,7 +34,7 @@ namespace RGPopup.Maui.IOS.Impl
 
         public Task AddAsync(PopupPage page, Page? parent = null)
         {
-            page.Parent = parent ?? Application.Current?.MainPage;
+            page.Parent = parent ?? _mainPage;
             if (Config.Instance.FixKeyboardOverlap && page.Effects.All(x => x.GetType() != typeof(KeyboardOverlapFixEffect)))
             {
                 page.Effects.Add(new KeyboardOverlapFixEffect());

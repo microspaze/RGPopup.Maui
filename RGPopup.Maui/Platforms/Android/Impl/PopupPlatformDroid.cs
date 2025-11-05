@@ -21,7 +21,7 @@ namespace RGPopup.Maui.Droid.Impl
     internal class PopupPlatformDroid : IPopupPlatform
     {
         private FrameLayout? _decorView = Popup.DecorView;
-        private Page? _mainPage = XApplication.Current?.MainPage;
+        private Page? _mainPage => XApplication.Current?.Windows[0].Page;
         
         public event EventHandler OnInitialized
         {
