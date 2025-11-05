@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="RGPopup.Samples.Pages.LoginModalPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+    xmlns:animation="clr-namespace:RGPopup.Maui.Animations;assembly=RGPopup.Maui"
+    BackgroundColor="Transparent">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#9cdaf1" />
+                <Setter Property="TextColor" Value="#7dbbe6" />
+                <Setter Property="WidthRequest" Value="180"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <rg:PopupPage.Animation>
+        <animation:ScaleAnimation
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            />
+    </rg:PopupPage.Animation>
+    <ContentView>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Frame
+                    x:Name="FrameContainer"
+                    Margin="15"
+                    HorizontalOptions="Center">
+                    <StackLayout
+                        Padding="10,5"
+                        IsClippedToBounds="True"
+                        Spacing="3">
+                        <Image
+                            x:Name="OctocatImage"
+                            Margin="20"
+                            HeightRequest="180"
+                            HorizontalOptions="Center"
+                            WidthRequest="180"
+                            Source="github_octocat.png">
+                        </Image>
+                        <Entry
+                            x:Name="CountryEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Country"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="ProvinceEntry"
+                            HorizontalOptions="Center"
+                            IsPassword="True"
+                            Placeholder="Province"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="UsernameEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Username"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="PasswordEntry"
+                            HorizontalOptions="Center"
+                            IsPassword="False"
+                            Placeholder="Password"
+                            Style="{StaticResource EntryStyle}" />
+                        <Entry
+                            x:Name="RegionEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Region"
+                            Style="{StaticResource EntryStyle}" />
+                        <Editor
+                            x:Name="RemarkEditor"
+                            HorizontalOptions="Center"
+                            Placeholder="Remark"
+                            HeightRequest="60"  WidthRequest="180" BackgroundColor="Azure"
+                            Style="{StaticResource EntryStyle}" ></Editor>
+                        <Button
+                            x:Name="LoginButton"
+                            Margin="10,5"
+                            BackgroundColor="#7dbbe6"
+                            Clicked="OnLogin"
+                            HorizontalOptions="Fill"
+                            Text="Login"
+                            HeightRequest="40"
+                            >
+                        </Button>
+                    </StackLayout>
+                </Frame>
+                <ContentView AbsoluteLayout.LayoutBounds="1, 0, -1, -1" AbsoluteLayout.LayoutFlags="PositionProportional">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                    </ContentView.GestureRecognizers>
+                    <Image
+                        x:Name="CloseImage"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="close_circle_button.png">
+                    </Image>
+                </ContentView>
+            </AbsoluteLayout>
+    </ContentView>
+</ContentPage>

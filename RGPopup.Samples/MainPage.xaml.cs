@@ -9,6 +9,7 @@ namespace RGPopup.Samples
     public partial class MainPage : ContentPage
     {
         private LoginPopupPage _loginPopup;
+        private LoginModalPage _loginModal;
         private SettingsContentView _settingContent;
 
         public MainPage()
@@ -21,11 +22,17 @@ namespace RGPopup.Samples
             PopupNavigation.Instance.Popped += (sender, e) => Debug.WriteLine($"[Popup] Popped: {e.Page.GetType().Name}");
 
             _loginPopup = new LoginPopupPage();
+            _loginModal = new LoginModalPage();
         }
 
         private async void OnOpenPopup(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(_loginPopup);
+        }
+        
+        private async void OnOpenLoginModal(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(_loginModal);
         }
 
         private async void OnUserAnimationPupup(object sender, EventArgs e)

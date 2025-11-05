@@ -31,7 +31,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.i7chi.rgpopup.samples</string>
 	<key>MinimumOSVersion</key>
-	<string>11.0</string>
+	<string>12.2</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
 	<key>NSMicrophoneUsageDescription</key>

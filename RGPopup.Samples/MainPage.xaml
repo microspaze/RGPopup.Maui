@@ -15,6 +15,7 @@
     <ScrollView VerticalOptions="Fill">
         <StackLayout Spacing="20" Margin="10, 15" VerticalOptions="Start">
             <Button Text="Open Login Popup" Clicked="OnOpenPopup" />
+            <Button Text="Open Login Modal" Clicked="OnOpenLoginModal" />
             <Button Text="Open User Animation Popup" Clicked="OnUserAnimationPupup" />
             <Button Text="Open System Offset Page" Clicked="OnOpenSystemOffsetPage" />
             <Button Text="ListView Page" Clicked="OnOpenListViewPage" />

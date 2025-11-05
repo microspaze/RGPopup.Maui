@@ -10,7 +10,7 @@ namespace RGPopup.Maui.Contracts
 
         bool IsSystemAnimationEnabled { get; }
 
-        Task AddAsync(PopupPage page);
+        Task AddAsync(PopupPage page, Page? parent = null);
 
         Task RemoveAsync(PopupPage page);
     }

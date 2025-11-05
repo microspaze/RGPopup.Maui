@@ -32,9 +32,9 @@ namespace RGPopup.Maui.IOS.Impl
 
         public bool IsSystemAnimationEnabled => true;
 
-        public Task AddAsync(PopupPage page)
+        public Task AddAsync(PopupPage page, Page? parent = null)
         {
-            page.Parent = Application.Current?.MainPage;
+            page.Parent = parent ?? Application.Current?.MainPage;
             if (Config.Instance.FixKeyboardOverlap && page.Effects.All(x => x.GetType() != typeof(KeyboardOverlapFixEffect)))
             {
                 page.Effects.Add(new KeyboardOverlapFixEffect());

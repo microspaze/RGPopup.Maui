@@ -20,7 +20,8 @@ namespace RGPopup.Maui.Droid.Impl
 {
     internal class PopupPlatformDroid : IPopupPlatform
     {
-        private static FrameLayout? DecorView => Popup.DecorView;
+        private FrameLayout? _decorView = Popup.DecorView;
+        private Page? _mainPage = XApplication.Current?.MainPage;
         
         public event EventHandler OnInitialized
         {
@@ -32,14 +33,15 @@ namespace RGPopup.Maui.Droid.Impl
 
         public bool IsSystemAnimationEnabled => GetIsSystemAnimationEnabled();
 
-        public Task AddAsync(PopupPage page)
+        public Task AddAsync(PopupPage page, Page? parent = null)
         {
             HandleAccessibilityWorkaround(page, ImportantForAccessibility.NoHideDescendants);
-
-            page.Parent = XApplication.Current?.MainPage;
+            
+            page.Parent = parent ?? _mainPage;
             page.Unloaded += OnPopupUnloaded;
             var pageHandler = page.GetOrCreateHandler<PopupPageHandlerDroid>();
-            DecorView?.AddView(pageHandler.PlatformView);
+            var decorView = parent is { Handler.PlatformView: View { RootView: FrameLayout rootView } } ? rootView : _decorView;
+            decorView?.AddView(pageHandler.PlatformView);
             return PostAsync(pageHandler.PlatformView);
         }
 
@@ -53,15 +55,16 @@ namespace RGPopup.Maui.Droid.Impl
             {
                 HandleAccessibilityWorkaround(page, ImportantForAccessibility.Auto);
 
-                DecorView?.RemoveView(pageHandler.PlatformView);
+                var decorView = page.Parent is { Handler.PlatformView: View { RootView: FrameLayout rootView } } ? rootView : _decorView;
+                decorView?.RemoveView(pageHandler.PlatformView);
                 page.Parent = null;
                 //If manual dispose the view's renderer, but the view is not disposed at the same time, it will crash when repush the view.
                 //renderer.Dispose();
                 page.Handler?.DisconnectHandler();
                 page.Unloaded -= OnPopupUnloaded;
 
-                if (DecorView != null)
-                    return PostAsync(DecorView);
+                if (decorView != null)
+                    return PostAsync(decorView);
             }
 
             return Task.FromResult(true);

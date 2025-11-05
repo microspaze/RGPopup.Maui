@@ -31,9 +31,9 @@ namespace RGPopup.Maui.MacOS.Impl
 
         public bool IsSystemAnimationEnabled => true;
 
-        public Task AddAsync(PopupPage page)
+        public Task AddAsync(PopupPage page, Page? parent = null)
         {
-            page.Parent = Application.Current?.MainPage;
+            page.Parent = parent ?? Application.Current?.MainPage;
 
             page.DescendantRemoved += HandleChildRemoved;
 

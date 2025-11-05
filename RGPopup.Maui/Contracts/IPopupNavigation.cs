@@ -15,7 +15,7 @@ namespace RGPopup.Maui.Contracts
 
         IReadOnlyList<PopupPage> PopupStack { get; }
 
-        Task PushAsync(PopupPage page, bool animate = true);
+        Task PushAsync(PopupPage page, bool animate = true, Page? parent = null);
 
         Task PopAsync(bool animate = true);
 

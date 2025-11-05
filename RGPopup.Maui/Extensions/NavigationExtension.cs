@@ -5,9 +5,9 @@ namespace RGPopup.Maui.Extensions
 {
     public static class NavigationExtension
     {
-        public static Task PushPopupAsync(this INavigation sender, PopupPage page, bool animate = true)
+        public static Task PushPopupAsync(this INavigation sender, PopupPage page, bool animate = true, Page? parent = null)
         {
-            return PopupNavigation.Instance.PushAsync(page, animate);
+            return PopupNavigation.Instance.PushAsync(page, animate, parent);
         }
 
         public static Task PopPopupAsync(this INavigation sender, bool animate = true)

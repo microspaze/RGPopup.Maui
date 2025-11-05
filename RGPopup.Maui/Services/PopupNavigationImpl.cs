@@ -47,7 +47,7 @@ namespace RGPopup.Maui.Services
                 await PopAllAsync(false);
         }
 
-        public Task PushAsync(PopupPage page, bool animate = true)
+        public Task PushAsync(PopupPage page, bool animate = true, Page? parent = null)
         {
             lock (_locker)
             {
@@ -66,12 +66,12 @@ namespace RGPopup.Maui.Services
                     if (animate)
                     {
                         page.PreparingAnimation();
-                        await AddAsync(page);
+                        await AddAsync(page, parent);
                         await page.AppearingAnimation();
                     }
                     else
                     {
-                        await AddAsync(page);
+                        await AddAsync(page, parent);
                     }
 
                     page.AppearingTransactionTask = null;
@@ -165,9 +165,9 @@ namespace RGPopup.Maui.Services
 
         // Private
 
-        private static Task AddAsync(PopupPage page)
+        private static Task AddAsync(PopupPage page, Page? parent = null)
         {
-            return PopupPlatform.AddAsync(page);
+            return PopupPlatform.AddAsync(page, parent);
         }
 
         private static Task RemoveAsync(PopupPage page)
